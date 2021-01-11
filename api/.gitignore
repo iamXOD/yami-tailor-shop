@@ -1,0 +1,10 @@
+#Dependencies
+node_modules/
+
+#Database Files
+*.db
+*.sqlite
+*.sqlite3
+
+#Test
+__test__/
