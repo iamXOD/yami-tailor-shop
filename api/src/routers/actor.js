@@ -11,7 +11,7 @@ actorRouter.get("/actors", verify, (req, res) => {
         .catch(err => next(err));
 })
 
-actorRouter.get("/actor/:id", verify, (req, res) => {
+actorRouter.get("/actor/:id", verify, (req, res, next) => {
     dao.get("actor", req.params.id).then(data => res.json(data))
         .catch(err => next(err));
 })
