@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 
 const actorRouter = require("./routers/actor");
 const materialTypeRouter = require("./routers/material-type");
+const errorHandler = require("./routers/middleware/error");
 
 //Middleware
 const app = express();
@@ -18,4 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(actorRouter);
 app.use(materialTypeRouter);
 
+//Error Handler
+app.use(errorHandler);
+
+//Export
 module.exports = app;
