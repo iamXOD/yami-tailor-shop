@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 const actorRouter = require("./routers/actor");
+const materialTypeRouter = require("./routers/material-type");
 
 //Middleware
 const app = express();
@@ -15,5 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Routers
 app.use(actorRouter);
+app.use(materialTypeRouter);
 
 module.exports = app;

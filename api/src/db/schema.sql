@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS "order" (
 	"payed"	NUMERIC NOT NULL,
 	"status"	REAL NOT NULL,
 	"piece"	TEXT NOT NULL,
-	FOREIGN KEY("material") REFERENCES "material"("material_id") ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	FOREIGN KEY("costumer") REFERENCES "actor"("actor_id") ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	FOREIGN KEY("material") REFERENCES "material"("material_id") ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	PRIMARY KEY("order_id")
 );
 CREATE TABLE IF NOT EXISTS "actor" (
@@ -49,21 +49,22 @@ CREATE TABLE IF NOT EXISTS "investment" (
 	"ammount"	REAL NOT NULL,
 	"total_price"	NUMERIC NOT NULL,
 	"description"	TEXT,
-	FOREIGN KEY("supplier") REFERENCES "actor"("actor_id") ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	FOREIGN KEY("material") REFERENCES "material"("material_id") ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	FOREIGN KEY("supplier") REFERENCES "actor"("actor_id") ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	PRIMARY KEY("investment_id")
-);
-CREATE TABLE IF NOT EXISTS "user" (
-	"user_id"	INTEGER,
-	"salted_password"	TEXT NOT NULL,
-	"admin"	INTEGER DEFAULT 0,
-	PRIMARY KEY("user_id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "material_type" (
 	"material_type_id"	INTEGER,
 	"name"	TEXT NOT NULL,
 	"unit"	TEXT DEFAULT 'unit',
 	PRIMARY KEY("material_type_id")
+);
+CREATE TABLE IF NOT EXISTS "user" (
+	"user_id"	INTEGER,
+	"username"	TEXT NOT NULL,
+	"salted_password"	TEXT NOT NULL,
+	"admin"	INTEGER DEFAULT 0,
+	PRIMARY KEY("user_id" AUTOINCREMENT)
 );
 INSERT INTO "material" ("material_id","type","color","description") VALUES (1,1,'Unknown','Unknown material');
 INSERT INTO "actor" ("actor_id","name","mobile_phone","home_phone","gender","email") VALUES (1,'Unknown',NULL,NULL,'F',NULL);
