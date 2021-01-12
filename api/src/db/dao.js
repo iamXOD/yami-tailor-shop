@@ -65,6 +65,10 @@ query = function(query, params) {
     })
 }
 
+getUser = function(username) {
+    const sql = `SELECT * FROM user WHERE username = ?`;
+    return find(sql, [username]);
+}
 module.exports = {
     setURL,
     all,
@@ -73,5 +77,6 @@ module.exports = {
     update,
     remove,
     find,
-    query
+    query,
+    getUser
 }
