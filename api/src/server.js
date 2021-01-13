@@ -8,6 +8,7 @@ const actorRouter = require("./routers/actor");
 const materialTypeRouter = require("./routers/material-type");
 const userRouter = require("./routers/user");
 const fixRouter = require("./routers/fix");
+const materialRouter = require("./routers/material");
 
 const errorHandler = require("./routers/middleware/error");
 
@@ -23,6 +24,7 @@ app.use(actorRouter);
 app.use(materialTypeRouter);
 app.use(userRouter);
 app.use(fixRouter);
+app.use(materialRouter);
 
 //Error Handler
 app.use(errorHandler);
