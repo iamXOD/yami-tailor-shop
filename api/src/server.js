@@ -7,6 +7,8 @@ const cookieParser = require("cookie-parser");
 const actorRouter = require("./routers/actor");
 const materialTypeRouter = require("./routers/material-type");
 const userRouter = require("./routers/user");
+const fixRouter = require("./routers/fix");
+
 const errorHandler = require("./routers/middleware/error");
 
 //Middleware
@@ -20,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(actorRouter);
 app.use(materialTypeRouter);
 app.use(userRouter);
+app.use(fixRouter);
 
 //Error Handler
 app.use(errorHandler);
