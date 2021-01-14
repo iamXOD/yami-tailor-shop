@@ -35,9 +35,9 @@ update = function(collection, newObject) {
     const idName = collection + "_id";
     const id = newObject[idName];
     const props = Object.keys(newObject).filter(value => value != idName);
-    const query = props.map(value => `${value} = ?`).join(", ");
+    const queryString = props.map(value => `${value} = ?`).join(", ");
     const values = props.map(value => newObject[value]);
-    const sql = `UPDATE ${collection} SET ${query} WHERE ${idName} = ?`;
+    const sql = `UPDATE ${collection} SET ${queryString} WHERE ${idName} = ?`;
     return query(sql, [...values, id]);
 
 }

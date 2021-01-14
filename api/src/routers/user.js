@@ -30,6 +30,7 @@ userRouter.post("/user/add", verify, (req, res, next) => {
 })
 userRouter.post("/login", (req, res, next) => {
     const { username, password } = req.body;
+    if (!username || !password) { throw new Error("Missing parameters to login") }
     login({ username, password }).then(token => {
         if (token) {
             res.json(token)
