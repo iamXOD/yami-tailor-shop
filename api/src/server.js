@@ -11,6 +11,7 @@ const fixRouter = require("./routers/fix");
 const materialRouter = require("./routers/material");
 const orderRouter = require("./routers/order");
 const investmentRouter = require("./routers/investment");
+const notFoundRouter = require("./routers/middleware/not-found");
 
 const errorHandler = require("./routers/middleware/error");
 
@@ -28,6 +29,9 @@ app.use(userRouter);
 app.use(fixRouter);
 app.use(materialRouter);
 app.use(investmentRouter);
+
+//Wildcar router
+app.use(notFoundRouter);
 
 //Error Handler
 app.use(errorHandler);
