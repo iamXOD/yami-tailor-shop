@@ -1,22 +1,27 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const { secret, databaseURL, saltRounds } =
-require("../../config");
-const dao = require("../../db/dao");
+//Imports
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+
+//App Imports
+import { secret, databaseURL, saltRounds } from "../../config";
+import dao from "../../db/dao";
+import { Request, Response, NextFunction } from "express";
+
+//Setup
 dao.setURL(databaseURL);
 
-verify = function(request, res, next) {
+export function verify(request: Request, _res: Response, next: NextFunction) {
     let token = request.body.token ||
         request.query.token ||
         request.headers['x-access-token'] ||
         request.cookies.token;
     if (token && token != "null") {
-        request.user = jwt.verify(token, secret);
+        request.user = Object(jwt.verify(token, secret));
         next();
     } else { next(new Error("You must authenticate first")) }
 }
 
-register = function({ username, password, admin = false }) {
+export function register({ username, password, admin = false }: Model.User) {
     return dao.getUser(username).then(user => {
         if (user) { throw new Error("username already in use"); }
         return bcrypt.hash(password, saltRounds);
@@ -29,18 +34,12 @@ register = function({ username, password, admin = false }) {
     });
 }
 
-login = function({ username, password }) {
+export function login({ username, password }: Model.User) {
     return dao.getUser(username).then(user => {
         return bcrypt.compare(password, user.salted_password)
             .then(check => {
-                if (check) { return jwt.sign(user, secret) }
+                if (check) { return jwt.sign({ username: user.username, admin: user.admin }, secret) }
                 throw new Error("Wrong username or password");
             });
     });
-}
-
-module.exports = {
-    verify,
-    register,
-    login
 }

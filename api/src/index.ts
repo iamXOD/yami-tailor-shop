@@ -1,6 +1,6 @@
-const http = require("http");
-const apiServer = require("./server");
-const config = require("./config");
+import http from "http";
+import apiServer from "./server";
+import config from "./config";
 
 const PORT = process.env.PORT || config.port;
 

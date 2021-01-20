@@ -1,9 +1,21 @@
-const sqlite3 = require("sqlite3");
+import sqlite3 from "sqlite3";
 
-module.exports = function(url) {
-    dbURL = url || "./storage.sqlite3";
+export interface dbAction {
+    (resolve: {
+        (value?: unknown): void
+    }, reject: {
+        (reason?: any): void
+    }, db: sqlite3.Database): void
+}
 
-    return function wrapper(action) {
+export interface Wrapper {
+    (action: dbAction): Promise<any>
+}
+
+export function getWrapper(url: string): Wrapper {
+    const dbURL = url || "./storage.sqlite3";
+
+    return function (action) {
         const db = new sqlite3.Database(dbURL, sqlite3.OPEN_READWRITE, (error) => {
             if (error) { throw error }
             console.log(`Database at ${dbURL} connected`);

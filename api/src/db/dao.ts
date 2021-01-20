@@ -1,10 +1,15 @@
-const Conection = require("./db-wrapper");
-let dbWrapper
+import { Wrapper, getWrapper } from "./db-wrapper";
+import { RunResult } from "sqlite3";
 
-setURL = function(dbURL) {
-    dbWrapper = Conection(dbURL);
+let dbWrapper: Wrapper
+
+type CollectionName = "actor" | "fix" | "material_type"
+    | "material" | "order" | "investment" | "user";
+
+const setURL = function (dbURL: string): void {
+    dbWrapper = getWrapper(dbURL);
 }
-all = function(collection) {
+const all = function (collection: CollectionName): Promise<any[]> {
     return dbWrapper((resolve, reject, db) => {
         const sql = `SELECT * FROM ${collection}`;
         db.all(sql, [], (err, rows) => {
@@ -14,7 +19,7 @@ all = function(collection) {
     });
 };
 
-get = function(collection, id) {
+const get = function (collection: CollectionName, id: number) {
     const sql = `SELECT * FROM ${collection} WHERE ${collection}_id = ?`;
     return find(sql, [id]).then(row => {
         if (!row) { throw new Error(`${collection} with id ${id} not found`) }
@@ -22,7 +27,7 @@ get = function(collection, id) {
     })
 }
 
-insert = function(collection, newObject) {
+const insert = function (collection: CollectionName, newObject: any) {
     const props = Object.keys(newObject);
     const propsString = props.join(", ");
     const valuesString = props.length == 1 ? "?" : "?,".repeat(props.length - 1) + "?";
@@ -31,7 +36,7 @@ insert = function(collection, newObject) {
     return query(sql, [...values]);
 }
 
-update = function(collection, newObject) {
+const update = function (collection: CollectionName, newObject: any) {
     const idName = collection + "_id";
     const id = newObject[idName];
     const props = Object.keys(newObject).filter(value => value != idName);
@@ -42,12 +47,12 @@ update = function(collection, newObject) {
 
 }
 
-remove = function(collection, id) {
+const remove = function (collection: CollectionName, id: number) {
     const sql = `DELETE FROM ${collection} WHERE ${collection}_id = ?`;
     return query(sql, [id]);
 }
 
-find = function(query, params) {
+const find = function (query: string, params: any[]) {
     return dbWrapper((resolve, reject, db) => {
         db.get(query, params, (err, row) => {
             if (err) { reject(err) };
@@ -56,20 +61,20 @@ find = function(query, params) {
     })
 }
 
-query = function(query, params) {
+const query = function (query: string, params: any[]): Promise<RunResult> {
     return dbWrapper((resolve, reject, db) => {
-        db.run(query, params, function(err) {
+        db.run(query, params, function (err) {
             if (err) { reject(err) }
             resolve({ lastID: this.lastID, changes: this.changes });
         })
     })
 }
 
-getUser = function(username) {
+const getUser = function (username: string): Promise<Model.UserTable> {
     const sql = `SELECT * FROM user WHERE username = ?`;
     return find(sql, [username]);
 }
-module.exports = {
+export = {
     setURL,
     all,
     get,

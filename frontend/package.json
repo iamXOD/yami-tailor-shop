@@ -2,7 +2,7 @@
     "name": "yami-tailor-shop-frontend",
     "version": "1.0.0",
     "description": "Frontend for the Yami Tailor Shop app",
-    "main": "index.js",
+    "main": "index.ts",
     "keywords": [
         "react",
         "spa",
@@ -12,6 +12,12 @@
     "author": "Harold Iván Muñoz Garcés",
     "license": "MIT",
     "devDependencies": {
+        "@types/material-ui": "^0.21.8",
+        "@types/node": "^14.14.21",
+        "@types/react": "^17.0.0",
+        "@types/react-dom": "^17.0.0",
+        "@types/react-redux": "^7.1.15",
+        "@types/react-router-dom": "^5.1.7",
         "react-scripts": "3.4.3",
         "sw-precache": "^5.2.1"
     },
@@ -25,7 +31,8 @@
         "react-redux": "^7.2.1",
         "react-router-dom": "5.2.0",
         "redux": "^4.0.5",
-        "redux-thunk": "^2.3.0"
+        "redux-thunk": "^2.3.0",
+        "typescript": "^4.1.3"
     },
     "scripts": {
         "start": "react-scripts start",

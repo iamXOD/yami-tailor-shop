@@ -1,6 +1,9 @@
 #Dependencies
 node_modules/
 
+#Production
+build/
+
 #Database Files
 *.db
 *.sqlite
