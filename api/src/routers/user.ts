@@ -12,13 +12,13 @@ dao.setURL(databaseURL);
 
 userRouter.get("/users", verify, (_req: Request, res: Response, next: NextFunction) => {
     dao.all("user")
-        .then(data => res.json(data.map(({ username, admin }: Model.User) => ({ username, admin }))))
+        .then(data => res.json(data.map(({ username, admin }: Model.UserTable) => ({ username, admin }))))
         .catch(err => next(err));
 })
 
 userRouter.get("/user/:id", verify, (req: Request, res: Response, next: NextFunction) => {
     dao.get("user", Number(req.params.id))
-        .then(({ username, admin }: Model.User) => res.json({ username, admin }))
+        .then(({ username, admin }: Model.UserTable) => res.json({ username, admin }))
         .catch(err => next(err));
 })
 

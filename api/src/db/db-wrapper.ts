@@ -1,18 +1,6 @@
 import sqlite3 from "sqlite3";
 
-export interface dbAction {
-    (resolve: {
-        (value?: unknown): void
-    }, reject: {
-        (reason?: any): void
-    }, db: sqlite3.Database): void
-}
-
-export interface Wrapper {
-    (action: dbAction): Promise<any>
-}
-
-export function getWrapper(url: string): Wrapper {
+export function getWrapper(url: string): dbUtil.Wrapper {
     const dbURL = url || "./storage.sqlite3";
 
     return function (action) {

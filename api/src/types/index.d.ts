@@ -1,6 +1,7 @@
 declare namespace Express {
     export interface Request {
-        user?: Model.User
+        user?: Model.UserTable,
+        dao?: dbUtil.DAO
     }
 }
 interface Error {

@@ -29,7 +29,7 @@ export function register({ username, password, admin = false }: Model.User) {
         return dao.insert("user", {
             username,
             salted_password,
-            admin: Number(admin)
+            admin: Boolean(admin)
         });
     });
 }
