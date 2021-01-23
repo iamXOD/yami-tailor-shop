@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 //UI imports
 import FlatButton from "material-ui/FlatButton";
 
-const UserButtonLogin = (props) => {
+const UserButtonLogin = () => {
     return <Link to="/login">
-        <FlatButton {...props} label="Login" />
+        <FlatButton label="Login" />
     </Link>
 
 }

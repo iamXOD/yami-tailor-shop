@@ -1,6 +1,6 @@
 import React from "react";
 
-const About = (props) => {
+const About: React.FunctionComponent<{}> = () => {
     return <section>
         <h1>About Us</h1>
         <p>We are a tailor shop whose mission

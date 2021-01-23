@@ -8,7 +8,7 @@ import FlatButton from "material-ui/FlatButton";
 //App Imports
 import { userLogout } from "../../../store/actions/user"
 
-const UserButtonLogged = (props) => {
+const UserButtonLogged = (props: { userLogout: typeof userLogout }) => {
     return <FlatButton
         label="Log out"
         onClick={props.userLogout} />;

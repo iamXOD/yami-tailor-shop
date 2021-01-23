@@ -3,11 +3,11 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import Layout from "./components/layout";
-import Login from "./components/user/login";
+import Login from "./components/user/loginContainer";
 import About from "./components/about";
 import PageNotFound from "./components/page-not-found";
 
-const App = () => {
+const App: React.FunctionComponent<{}> = () => {
     return <Layout>
         <Switch>
             <Route path="/login" component={Login} />

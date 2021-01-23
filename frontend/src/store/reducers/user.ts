@@ -1,12 +1,13 @@
 //App Imports
-import { USER_LOGIN, USER_LOGOUT } from "../actions/user";
+import { UserActionTypes, USER_LOGIN, USER_LOGOUT } from "../actions/user";
+import { UserState } from "../../types";
 
-const initialState = {
+const initialState: UserState = {
     isAuthenticated: false,
-    username: null
+    username: undefined
 }
 
-export default (state = initialState, action = {}) => {
+export default (state = initialState, action: UserActionTypes = {}): UserState => {
     console.log("state:", state);
     console.log("action:", action);
 
