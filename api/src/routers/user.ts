@@ -2,27 +2,24 @@
 import express, { Request, Response, NextFunction } from "express";
 
 //App Imports
-import { verify, register, login } from "./middleware/auth";
-import dao from "../db/dao";
-import { databaseURL } from "../config";
+import { register, login } from "./middleware/auth";
 
 //Setup
 const userRouter = express.Router();
-dao.setURL(databaseURL);
 
-userRouter.get("/users", verify, (_req: Request, res: Response, next: NextFunction) => {
-    dao.all("user")
+userRouter.get("/users", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.all("user")
         .then(data => res.json(data.map(({ username, admin }: Model.UserTable) => ({ username, admin }))))
         .catch(err => next(err));
 })
 
-userRouter.get("/user/:id", verify, (req: Request, res: Response, next: NextFunction) => {
-    dao.get("user", Number(req.params.id))
+userRouter.get("/user/:id", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.get("user", Number(req.params.id))
         .then(({ username, admin }: Model.UserTable) => res.json({ username, admin }))
         .catch(err => next(err));
 })
 
-userRouter.post("/user/add", verify, (req: Request, res: Response, next: NextFunction) => {
+userRouter.post("/user/add", (req: Request, res: Response, next: NextFunction) => {
     if (req.user && req.user.admin) {
         register(req.body).then(({ lastID }) => res.json(lastID));
     } else { next(new Error("You need to be admin")) }

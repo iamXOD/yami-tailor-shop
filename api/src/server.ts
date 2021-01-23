@@ -4,6 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 
+//Routers
 import actorRouter from "./routers/actor";
 import materialTypeRouter from "./routers/material-type";
 import userRouter from "./routers/user";
@@ -11,8 +12,11 @@ import fixRouter from "./routers/fix";
 import materialRouter from "./routers/material";
 import orderRouter from "./routers/order";
 import investmentRouter from "./routers/investment";
-import notFoundRouter from "./routers/middleware/not-found";
 
+//Middleware
+import daoRouter from "./routers/middleware/db";
+import { verify } from "./routers/middleware/auth";
+import notFoundRouter from "./routers/middleware/not-found";
 import errorHandler from "./routers/middleware/error";
 
 //Middleware
@@ -21,6 +25,10 @@ app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//DAO Router
+app.use(daoRouter);
+app.use(verify);
 
 //Routers
 app.use(actorRouter);

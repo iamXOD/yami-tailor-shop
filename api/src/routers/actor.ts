@@ -1,33 +1,31 @@
+//Imports
 import express, { Request, Response, NextFunction } from "express";
-import { verify } from "./middleware/auth";
-import dao from "../db/dao";
-import { databaseURL } from "../config";
 
+//Setup
 const actorRouter = express.Router();
-dao.setURL(databaseURL);
 
-actorRouter.get("/actors", verify, (_req: Request, res: Response, next: NextFunction) => {
-    dao.all("actor").then((data: any[]) => res.json(data))
+actorRouter.get("/actors", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.all("actor").then((data: any[]) => res.json(data))
         .catch(err => next(err));
 })
 
-actorRouter.get("/actor/:id", verify, (req: Request, res: Response, next: NextFunction) => {
-    dao.get("actor", Number(req.params.id)).then((data: any) => res.json(data))
+actorRouter.get("/actor/:id", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.get("actor", Number(req.params.id)).then((data: any) => res.json(data))
         .catch(err => next(err));
 })
 
-actorRouter.post("/actor/add", verify, (req: Request, res: Response, next: NextFunction) => {
-    dao.insert("actor", req.body).then(data => res.json(data))
+actorRouter.post("/actor/add", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.insert("actor", req.body).then(data => res.json(data))
         .catch(err => next(err));
 })
 
-actorRouter.post("/actor/update", verify, (req: Request, res: Response, next: NextFunction) => {
-    dao.update("actor", req.body).then(data => res.json(data))
+actorRouter.post("/actor/update", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.update("actor", req.body).then(data => res.json(data))
         .catch(err => next(err));
 })
 
-actorRouter.get("/actor/delete/:id", verify, (req: Request, res: Response, next: NextFunction) => {
-    dao.remove("actor", Number(req.params.id)).then(data => res.json(data))
+actorRouter.get("/actor/delete/:id", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.remove("actor", Number(req.params.id)).then(data => res.json(data))
         .catch(err => next(err));
 })
 

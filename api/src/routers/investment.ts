@@ -1,33 +1,31 @@
+//Imports
 import express, { NextFunction, Response, Request } from "express";
-import { verify } from "./middleware/auth";
-import dao from "../db/dao";
-import { databaseURL } from "../config";
 
+//Setup
 const investmentRouter = express.Router();
-dao.setURL(databaseURL);
 
-investmentRouter.get("/investments", verify, (_req: Request, res: Response, next: NextFunction) => {
-    dao.all("investment").then(data => res.json(data))
+investmentRouter.get("/investments", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.all("investment").then(data => res.json(data))
         .catch(err => next(err));
 });
 
-investmentRouter.get("/investment/:id", verify, (req: Request, res: Response, next: NextFunction) => {
-    dao.get("investment", Number(req.params.id)).then(data => res.json(data))
+investmentRouter.get("/investment/:id", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.get("investment", Number(req.params.id)).then(data => res.json(data))
         .catch(err => next(err));
 })
 
-investmentRouter.post("/investment/add", verify, (req: Request, res: Response, next: NextFunction) => {
-    dao.insert("investment", req.body).then(data => res.json(data))
+investmentRouter.post("/investment/add", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.insert("investment", req.body).then(data => res.json(data))
         .catch(err => next(err));
 })
 
-investmentRouter.post("/investment/update", verify, (req: Request, res: Response, next: NextFunction) => {
-    dao.update("investment", req.body).then(data => res.json(data))
+investmentRouter.post("/investment/update", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.update("investment", req.body).then(data => res.json(data))
         .catch(err => next(err));
 })
 
-investmentRouter.get("/investment/delete/:id", verify, (req: Request, res: Response, next: NextFunction) => {
-    dao.remove("investment", Number(req.params.id)).then(data => res.json(data))
+investmentRouter.get("/investment/delete/:id", (req: Request, res: Response, next: NextFunction) => {
+    req.dao.remove("investment", Number(req.params.id)).then(data => res.json(data))
         .catch(err => next(err));
 })
 

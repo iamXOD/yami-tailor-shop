@@ -11,6 +11,7 @@ import { Request, Response, NextFunction } from "express";
 dao.setURL(databaseURL);
 
 export function verify(request: Request, _res: Response, next: NextFunction) {
+    request.user = null;
     let token = request.body.token ||
         request.query.token ||
         request.headers['x-access-token'] ||
