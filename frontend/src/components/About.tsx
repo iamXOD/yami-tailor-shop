@@ -1,6 +1,7 @@
-import React from "react";
+//Types
+import { ReactElement } from "react";
 
-const About: React.FunctionComponent<{}> = () => {
+export default function About(): ReactElement {
     return <section>
         <h1>About Us</h1>
         <p>We are a tailor shop whose mission
@@ -9,5 +10,3 @@ const About: React.FunctionComponent<{}> = () => {
         measures and taste</p>
     </section>
 }
-
-export default About;

@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "esnext",
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "outDir": "./build",
     "rootDir": "./src",
     "noImplicitAny": true,
@@ -25,7 +25,8 @@
     "strict": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src"
