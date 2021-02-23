@@ -1,8 +1,10 @@
 //Imports
 import express from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+
+//Services
+import logger from "./services/logger";
 
 //Routers
 import actorRouter from "./routers/actor";
@@ -14,17 +16,18 @@ import orderRouter from "./routers/order";
 import investmentRouter from "./routers/investment";
 
 //Middleware
-import daoRouter from "./routers/middleware/db";
-import { verify } from "./routers/middleware/auth";
-import notFoundRouter from "./routers/middleware/not-found";
-import errorHandler from "./routers/middleware/error";
+import daoRouter from "./middlewares/db";
+import { verify } from "./middlewares/auth";
+import notFoundRouter from "./middlewares/not-found";
+import errorHandler from "./middlewares/error";
+import loggerRouter from "./middlewares/logger";
 
 //Middleware
 const app = express();
 app.use(cors());
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //DAO Router
 app.use(daoRouter);
@@ -39,11 +42,14 @@ app.use(materialRouter);
 app.use(investmentRouter);
 app.use(orderRouter);
 
-//Wildcar router
+//Wildcard router
 app.use(notFoundRouter);
+
+//Logger
+app.use(loggerRouter(logger));
 
 //Error Handler
 app.use(errorHandler);
 
 //Export
-export = app;
+export default app;

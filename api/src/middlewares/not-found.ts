@@ -1,9 +1,13 @@
+//Imports
 import express, { Request, Response, NextFunction } from "express";
 
+//Setup
 const notFoundRouter = express.Router();
 
 notFoundRouter.all("*", (_req: Request, _res: Response, next: NextFunction) => {
-    next(new Error("Resource not found"));
-})
+    const error = new Error("Resource not found");
+    error.statusCode = 404;
+    next(error);
+});
 
-export = notFoundRouter;
+export default notFoundRouter;

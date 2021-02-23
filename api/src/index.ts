@@ -1,10 +1,14 @@
+//Imports
 import http from "http";
+
+//App Imports
 import apiServer from "./server";
 import config from "./config";
+import logger from "./services/logger";
 
-const PORT = process.env.PORT || config.port;
-
-
-http.createServer(apiServer).listen(PORT, () => {
-    console.log("Server up and running on:", `http://localhost:${PORT}`);
-})
+http.createServer(apiServer).listen(config.port, () => {
+    logger.log(
+        "info",
+        `Server up and running on: http://${config.host}:${config.port}`
+    );
+});

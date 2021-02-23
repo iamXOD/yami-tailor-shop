@@ -1,13 +1,19 @@
 {
     "name": "yami-tailor-shop-api",
     "version": "1.0.0",
-    "description": "Backend for the Yami Tailor Shop app",
+    "description": "API Backend for the Yami Tailor Shop app",
     "main": "./build",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc",
+        "build-ts": "tsc",
         "start": "nodemon ./build",
-        "dev": "nodemon -r ts-node/register ./src"
+        "dev": "nodemon -r ts-node/register -e ts ./src",
+        "lint": "tsc --noEmit && eslint '**/*.{js,ts}' --ignore-path .gitignore --quiet --fix",
+        "build": "npm run lint && npm run build-ts"
+    },
+    "engines": {
+        "node": "15.x.x",
+        "npm": "7.x.x"
     },
     "keywords": [
         "node",
@@ -19,12 +25,16 @@
     "license": "MIT",
     "dependencies": {
         "bcrypt": "5.0.0",
-        "body-parser": "1.19.0",
+        "class-validator": "0.13.1",
         "cookie-parser": "1.4.5",
         "cors": "2.8.5",
+        "dotenv": "8.2.0",
         "express": "4.17.1",
         "jsonwebtoken": "8.5.1",
-        "sqlite3": "5.0.0"
+        "reflect-metadata": "0.1.13",
+        "sqlite3": "5.0.0",
+        "typeorm": "0.2.31",
+        "winston": "3.3.3"
     },
     "devDependencies": {
         "@types/bcrypt": "^3.0.0",
@@ -35,6 +45,9 @@
         "@types/jsonwebtoken": "^8.5.0",
         "@types/node": "^14.14.22",
         "@types/sqlite3": "^3.1.6",
+        "@typescript-eslint/eslint-plugin": "4.17.0",
+        "@typescript-eslint/parser": "4.17.0",
+        "eslint": "7.22.0",
         "nodemon": "2.0.7",
         "ts-node": "^9.1.1",
         "typescript": "^4.1.3"

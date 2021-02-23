@@ -11,4 +11,4 @@ if (NODE_ENV === 'production') {
     config.url.api = '/';
 }
 
-export default config
+export default config;

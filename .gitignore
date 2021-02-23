@@ -1,3 +1,9 @@
+#Enviroment
+**/*.env
+
+#Logs
+**/*.log
+
 #TODO list
 TODO.md
 
