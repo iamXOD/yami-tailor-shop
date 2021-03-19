@@ -1,12 +1,29 @@
 //Imports
-import { NextFunction, Request, Response } from "express";
+import { ErrorRequestHandler } from "express";
+import { Logger } from "winston";
 
-export default function (
-    error: Error,
-    _req: Request,
-    res: Response,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _next: NextFunction
-): void {
-    res.status(error.statusCode || 500).json({ error: error.toString() });
+export default function errorLogger(logger: Logger): ErrorRequestHandler {
+    return (
+        error,
+        _req,
+        res,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        _next
+    ) => {
+        let logLevel: string;
+        if (error.statusCode >= 500) {
+            logLevel = "error";
+        } else if (error.statusCode >= 400) {
+            logLevel = "warn";
+        } else {
+            logLevel = "info";
+        }
+        logger.log(
+            logLevel,
+            `${new Date().toISOString()}: ${error.statusCode} - ${
+                error.message
+            }`
+        );
+        res.status(error.statusCode || 500).json(error);
+    };
 }

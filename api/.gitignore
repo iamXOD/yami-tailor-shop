@@ -11,3 +11,6 @@ build/
 
 #Test
 __test__/
+
+#Enviroment vars example
+!example.env

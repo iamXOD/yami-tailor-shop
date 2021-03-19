@@ -1,14 +1,21 @@
 //Imports
 import http from "http";
-
+import { createConnection } from "typeorm";
 //App Imports
-import apiServer from "./server";
 import config from "./config";
-import logger from "./services/logger";
+import apiServer from "./server";
+import { errorLogger, traceLogger } from "./services/logger";
 
-http.createServer(apiServer).listen(config.port, () => {
-    logger.log(
-        "info",
-        `Server up and running on: http://${config.host}:${config.port}`
-    );
-});
+createConnection()
+    .then((connection) => {
+        connection.runMigrations();
+        http.createServer(apiServer).listen(config.port, () => {
+            traceLogger.log(
+                "info",
+                `Server up and running on: http://${config.host}:${config.port}`
+            );
+        });
+    })
+    .catch((error: Error) => {
+        errorLogger.log("error", `TypeORM connection error: ${error.stack}`);
+    });

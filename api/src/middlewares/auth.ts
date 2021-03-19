@@ -1,64 +1,40 @@
 //Imports
-import { Request, Response, NextFunction } from "express";
+import { plainToClass } from "class-transformer";
+import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-
 //App Imports
 import config from "../config";
-import dao from "../db/dao";
+import UserEntity from "../models/User";
 
-//Setup
-dao.setURL(config.databaseURL);
-
-export function verify(request: Request, _res: Response, next: NextFunction) {
-    if (request.url !== "/login") {
-        request.user = null;
-        const token =
-            request.body.token ||
-            request.query.token ||
-            request.headers["x-access-token"] ||
-            request.cookies.token;
-        if (token && token != "null") {
-            request.user = Object(jwt.verify(token, config.secret));
-            next();
-        } else {
-            const err = new Error("You must authenticate first");
-            err.statusCode = 403;
-            next(err);
-        }
-    } else {
-        next();
+export const auth: RequestHandler = (req, _res, next) => {
+    if (req.url === "/login" && req.method === "POST") {
+        return next();
     }
-}
+    req.user = null;
+    const token =
+        req.body.token ||
+        req.query.token ||
+        req.headers["x-access-token"] ||
+        req.headers.authorization?.split(" ")[1] ||
+        req.cookies.token;
+    if (token && token != "null") {
+        req.user = plainToClass(UserEntity, jwt.verify(token, config.secret));
+        next();
+    } else {
+        const err = new Error();
+        err.message = "You must authenticate first";
+        err.statusCode = 403;
+        next(err);
+    }
+};
 
-export function register({ username, password, admin = false }: Model.User) {
-    return dao
-        .getUser(username)
-        .then((user) => {
-            if (user) {
-                throw new Error("username already in use");
-            }
-            return bcrypt.hash(password, config.saltRounds);
-        })
-        .then((salted_password) => {
-            return dao.insert("user", {
-                username,
-                salted_password,
-                admin: Boolean(admin),
-            });
-        });
-}
-
-export function login({ username, password }: Model.User) {
-    return dao.getUser(username).then((user) => {
-        return bcrypt.compare(password, user.salted_password).then((check) => {
-            if (check) {
-                return jwt.sign(
-                    { username: user.username, admin: user.admin },
-                    config.secret
-                );
-            }
-            throw new Error("Wrong username or password");
-        });
-    });
-}
+export const isAdmin: RequestHandler = (req, _res, next) => {
+    if (req.user?.admin) {
+        next();
+    } else {
+        const error = new Error();
+        error.message = "Resource not found";
+        error.statusCode = 404;
+        next(error);
+    }
+};
