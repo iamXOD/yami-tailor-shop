@@ -1,24 +1,21 @@
 //Imports
-import { useState, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-
-//App Imports
 import { Action } from "redux";
-import { api } from "../services";
+//App Imports
+import api from "../services/api";
 
-//Types
-import { Dispatch, SetStateAction } from "react";
-
-export function useDelete(url: string, reduxActionCreator: { (id: number): Action }): Dispatch<SetStateAction<number | undefined>> {
+export function useDelete(
+    url: string,
+    actionCreator: { (id: number): Action }
+): Dispatch<SetStateAction<number | undefined>> {
     const [id, setID] = useState<number>();
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (id) {
-            api.getData(url + id)
-                .then(() => dispatch(reduxActionCreator(id)))
+            api.delete(url + id).then(() => dispatch(actionCreator(id)));
         }
-
     }, [id]);
 
     return setID;

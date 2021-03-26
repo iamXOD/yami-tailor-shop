@@ -1,29 +1,38 @@
 //Imports
-import { useState, useEffect } from "react";
-
+import { useEffect, useState } from "react";
 //App Imports
-import { api } from "../services";
-import { OneOrMany } from "../types";
-import { Entity } from "../store/models";
+import api from "../services/api";
 
-//Types
-type Return<I> = { loading: boolean, data?: OneOrMany<I>, error?: Error };
+type Return<I> = { loading: boolean; data?: I; error?: Error };
 
-export default function useFetch<I extends Entity>(url: string): Return<I> {
+export default function useFetch<I>(url: string): Return<I> {
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState<OneOrMany<I>>();
+    const [data, setData] = useState<I>();
     const [error, setError] = useState<Error>();
 
     useEffect(() => {
         if (!url) return;
+        let mounted = true;
         setLoading(true);
-        api.getData(url)
-            .then(setData)
-            .then(() => setLoading(false))
-            .catch(err => {
-                setLoading(false);
-                setError(err);
+        api.get(url)
+            .then(({ data }) => {
+                if (mounted) {
+                    setData(data);
+                }
             })
+            .catch((err) => {
+                if (mounted) {
+                    setError(err);
+                }
+            })
+            .finally(() => {
+                if (mounted) {
+                    setLoading(false);
+                }
+            });
+        return () => {
+            mounted = false;
+        };
     }, [url]);
     return { loading, data, error };
 }

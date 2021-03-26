@@ -1,4 +1,4 @@
-//Types
+//Imports
 import { validate, ValidationError, ValidatorOptions } from "class-validator";
 
 export default class ObjectError<T> extends Error {

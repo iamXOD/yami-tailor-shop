@@ -1,7 +1,6 @@
 //Imports
 import dotenv from "dotenv";
 
-//Types
 export interface Config {
     host: string;
     port: number;

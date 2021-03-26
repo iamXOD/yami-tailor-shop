@@ -1,16 +1,18 @@
 //Imports
+import decode from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import decode from "jwt-decode";
-
 //App Imports
-import { api, storage } from "../services";
+import api from "../services/api";
+import { saveTOKEN } from "../services/storage";
+import { User } from "../store/models";
 import { userLogin } from "../store/user/actions";
 import { isValidToken } from "../util";
 
-//Types
-import { User } from "../store/models";
-type Return = { doLogin: { (username: string, password: string): void }, error?: Error };
+type Return = {
+    doLogin: { (username: string, password: string): void };
+    error?: Error;
+};
 
 export default function useLogin(): Return {
     const [username, setUsername] = useState<string>();
@@ -20,15 +22,18 @@ export default function useLogin(): Return {
 
     useEffect(() => {
         if (username && password) {
-            api.postData("login", { username, password })
-                .then(token => {
+            api.post("login", { username, password })
+                .then(({ data: token }) => {
                     if (isValidToken(token)) {
-                        storage.saveTOKEN(token);
+                        saveTOKEN(token);
                         return decode<User>(token);
                     }
                     throw new Error("Invalid Token");
-                }).then(({ username, admin }) => dispatch(userLogin(username, admin)))
-                .catch(err => setError(err));
+                })
+                .then(({ username, admin }) =>
+                    dispatch(userLogin(username, admin))
+                )
+                .catch((err) => setError(err));
         }
     }, [username, password]);
     function doLogin(username: string, password: string) {

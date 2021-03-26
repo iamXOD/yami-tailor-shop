@@ -1,12 +1,10 @@
 //Imports
-import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-
+import { useDispatch } from "react-redux";
 //App Imports
+import { removeTOKEN } from "../services/storage";
 import { userLogout } from "../store/user/actions";
-import { storage } from "../services";
 
-//Types
 type Return = [{ (): void }];
 
 export default function useLogout(): Return {
@@ -14,9 +12,9 @@ export default function useLogout(): Return {
     const dispatch = useDispatch();
     useEffect(() => {
         if (doLogout) {
-            storage.removeTOKEN();
+            removeTOKEN();
             dispatch(userLogout());
         }
-    }, [doLogout])
+    }, [doLogout]);
     return [() => setDoLogout(true)];
 }

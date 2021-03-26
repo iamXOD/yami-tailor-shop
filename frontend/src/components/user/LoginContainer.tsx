@@ -1,15 +1,12 @@
 //Imports
-import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-//App Imports
-import LoginForm from "./LoginForm";
-import useLogin from "../../hooks/useLogin";
-import ErrorCard from "../common/ErrorCard";
-
-//Types
 import { ReactElement } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+//App Imports
+import useLogin from "../../hooks/useLogin";
 import { State } from "../../types";
+import ErrorCard from "../common/ErrorCard";
+import LoginForm from "./LoginForm";
 
 export default function LoginContainer(): ReactElement {
     const history = useHistory();
@@ -19,7 +16,7 @@ export default function LoginContainer(): ReactElement {
     isAuthenticated && history.goBack();
 
     if (error) {
-        return <ErrorCard error={error} />
+        return <ErrorCard error={error} />;
     }
 
     return <LoginForm onSubmit={doLogin} />;

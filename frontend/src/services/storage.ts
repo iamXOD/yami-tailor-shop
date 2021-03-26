@@ -8,7 +8,7 @@ export function save<T>(key: string, value: T): boolean {
         localStorage.setItem(key, serializedState);
         return true;
     } catch (error) {
-        throw new Error('Store serialization failed');
+        throw new Error("Store serialization failed");
     }
 }
 
@@ -24,7 +24,7 @@ export function load<T>(key: string): T | undefined {
         }
         return JSON.parse(serializedState);
     } catch (error) {
-        throw new Error('Store deserialization failed');
+        throw new Error("Store deserialization failed");
     }
 }
 
@@ -53,3 +53,5 @@ export function removeTOKEN(): boolean {
 }
 
 export const TOKEN = "TOKEN";
+
+export default { save, load, remove, loadTOKEN, saveTOKEN, removeTOKEN, TOKEN };
