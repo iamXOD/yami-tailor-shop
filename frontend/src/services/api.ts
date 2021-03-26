@@ -1,7 +1,6 @@
 //App Imports
-import config from "../config";
 import { storage } from ".";
-
+import config from "../config";
 //Types
 import { TODO } from "../types";
 
@@ -13,34 +12,38 @@ export const postData = (url: string, data: TODO): Promise<TODO> => {
             "Content-Type": "application/json",
             "Content-Length": body.length.toString(),
         },
-        body
-    }
+        body,
+    };
     return XHR(url, addTokenIfLogged(options));
-}
+};
 
 export const getData = function (url: string): Promise<TODO> {
     const options = {
         method: "GET",
         headers: {
-            "Accept": "application/json"
-        }
-    }
+            Accept: "application/json",
+        },
+    };
     return XHR(url, addTokenIfLogged(options));
-}
+};
 
 const XHR = (url: string, options: RequestInit): Promise<TODO> => {
-    return fetch(config.url.api + url, options)
-        .then((res: Response) => {
-            if (res.ok) { return res.json() }
-            return res.json()
-                .then(({ error }) => { throw new Error(error) });
-        })
-}
+    return fetch(config.API + url, options).then((res: Response) => {
+        if (res.ok) {
+            return res.json();
+        }
+        return res.json().then(({ error }) => {
+            throw new Error(error);
+        });
+    });
+};
 
 function addTokenIfLogged(options: TODO): TODO {
     const token = storage.loadTOKEN();
     if (token) {
-        return Object.assign(options, { headers: { ...options.headers, ["x-access-token"]: token } });
+        return Object.assign(options, {
+            headers: { ...options.headers, ["x-access-token"]: token },
+        });
     }
     return options;
 }

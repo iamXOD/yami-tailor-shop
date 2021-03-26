@@ -1,14 +1,17 @@
 // Configurations for Frontend
-const NODE_ENV = (process.env.NODE_ENV === 'production') ? 'production' : 'development'
+import dotenv from "dotenv";
 
-const config: { url: { api: string } } = {
-    url: { api: "/" }
+interface Config {
+    NODE_ENV: string;
+    API: string;
 }
 
-if (NODE_ENV === 'production') {
-    config.url.api = 'https://api.yamitailorshop.com/';
-} else {
-    config.url.api = '/';
-}
+dotenv.config();
+
+const config: Config = {
+    NODE_ENV:
+        process.env.NODE_ENV === "production" ? "production" : "development",
+    API: process.env.REACT_APP_API || "/",
+};
 
 export default config;
