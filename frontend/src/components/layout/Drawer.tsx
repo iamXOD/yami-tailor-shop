@@ -33,15 +33,6 @@ export default function Drawer(props: Props): ReactElement {
                     );
                 })}
             </List>
-            {/* <List>
-            <ListSubheader>Actors</ListSubheader>
-            <ListItem button={true} component={Link} to="/actors" onClick={onClose} >
-                <ListItemText>List</ListItemText>
-            </ListItem>
-            <ListItem button={true} component={Link} to="/actors/add" onClick={onClose}>
-                <ListItemText>Add</ListItemText>
-            </ListItem>
-        </List> */}
         </MUIDrawer>
     );
 }
