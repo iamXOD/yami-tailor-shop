@@ -9,18 +9,16 @@ import {
     ActionType,
     CustomRender,
     TableHeader,
+    TableProps,
 } from "../../../types";
 import IconButton from "../IconButton";
 import Table from "./Table";
 
 type Props<T> = {
-    headers: TableHeader<T>[];
-    items: T[];
-    customRender?: CustomRender<T>;
     onDetailButton: (item: T) => () => void;
     onDeleteButton: (item: T) => () => void;
     onUpdateButton: (item: T) => () => void;
-};
+} & TableProps<T>;
 
 export default function ActionTable<T>(props: Props<T>): ReactElement {
     const {
@@ -30,6 +28,7 @@ export default function ActionTable<T>(props: Props<T>): ReactElement {
         onDetailButton,
         onDeleteButton,
         onUpdateButton,
+        ...remainingProps
     } = props;
 
     const actionHeaders: TableHeader<T & Actionable>[] = [
@@ -70,6 +69,7 @@ export default function ActionTable<T>(props: Props<T>): ReactElement {
             headers={actionHeaders}
             items={actionItems}
             customRender={actionCustomRender}
+            {...remainingProps}
         />
     );
 }

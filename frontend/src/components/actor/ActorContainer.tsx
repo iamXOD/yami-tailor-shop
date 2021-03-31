@@ -4,6 +4,7 @@ import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 //App Imports
+import useFilter from "../../hooks/useFilter";
 import { Actor } from "../../store/models";
 import { Predicate, State } from "../../types";
 import AddButton from "../common/FabAddButton";
@@ -24,7 +25,7 @@ export const defActor: Actor = {
 export default function ActorContainer(): ReactElement {
     const actors = useSelector((state: State) => state.actor.actors);
     const [actor, setActor] = useState<Actor>(defActor);
-    const [search, setSearch] = useState("");
+    const [filteredItems, search, setSearch] = useFilter(actors, filter);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [detailDialogOpen, setDetailDialogOpen] = useState(false);
     const [formDialogOpen, setFormDialogOpen] = useState(false);
@@ -38,19 +39,22 @@ export default function ActorContainer(): ReactElement {
         }
     }, [actorFromURL]);
 
-    const filter: Predicate<Actor> = (actor) => {
-        const { name, mobile_phone, home_phone, email } = actor;
-        return (
-            !search ||
-            name.toLowerCase().includes(search.toLowerCase()) ||
-            home_phone?.toLowerCase().includes(search.toLowerCase()) ||
-            email?.toLowerCase().includes(search.toLowerCase()) ||
-            mobile_phone.toLowerCase().includes(search.toLowerCase())
-        );
-    };
+    function filter(search: string): Predicate<Actor> {
+        return ({ name, mobile_phone, home_phone, email }) => {
+            const lowerCaseSearch = search.toLowerCase();
+            return (
+                !search ||
+                name.toLowerCase().includes(lowerCaseSearch) ||
+                home_phone?.toLowerCase().includes(lowerCaseSearch) ||
+                email?.toLowerCase().includes(lowerCaseSearch) ||
+                mobile_phone.toLowerCase().includes(lowerCaseSearch)
+            );
+        };
+    }
 
     const tableProps = {
         setActor,
+        items: filteredItems,
         openDetailDialog: () => setDetailDialogOpen(true),
         openDeleteDialog: () => setDeleteDialogOpen(true),
         openFormDialog: () => setFormDialogOpen(true),
@@ -63,7 +67,7 @@ export default function ActorContainer(): ReactElement {
     return (
         <Container maxWidth="md">
             <Search search={search} setSearch={setSearch} />
-            <Table items={actors.filter(filter)} {...tableProps} />
+            <Table {...tableProps} />
             <AddButton onAddButton={onAddButton} color="primary" />
             <Detail
                 open={detailDialogOpen}

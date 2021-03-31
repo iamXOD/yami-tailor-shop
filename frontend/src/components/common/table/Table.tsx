@@ -2,37 +2,26 @@
 import { TableBody, TableHead } from "@material-ui/core";
 import MUITable from "@material-ui/core/Table";
 import { ReactElement } from "react";
-//App Imports
-import useSort from "../../../hooks/useSort";
-import { CustomRender, TableHeader } from "../../../types";
+import { TableProps } from "../../../types";
 import TableBodyRow from "./TableBodyRow";
 import TableHeaderRow from "./TableHeaderRow";
-
-type Props<T> = {
-    headers: TableHeader<T>[];
-    items: T[];
-    customRender?: CustomRender<T>;
-};
 
 export default function Table<T>({
     headers,
     items,
     customRender,
-}: Props<T>): ReactElement {
-    const { sortedHeaders, sortedItems, sortBy } = useSort<T>(
-        headers.filter(({ isHidden }) => !isHidden),
-        items
-    );
+    sortBy,
+}: TableProps<T>): ReactElement {
     return (
         <MUITable>
             <TableHead>
-                <TableHeaderRow headers={sortedHeaders} sortBy={sortBy} />
+                <TableHeaderRow headers={headers} sortBy={sortBy} />
             </TableHead>
             <TableBody>
-                {sortedItems.map((item, i) => (
+                {items.map((item, i) => (
                     <TableBodyRow
                         key={i}
-                        headers={sortedHeaders}
+                        headers={headers}
                         item={item}
                         customRender={customRender}
                     />

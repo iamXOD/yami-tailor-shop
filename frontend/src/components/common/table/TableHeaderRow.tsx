@@ -6,7 +6,7 @@ import { TableHeader } from "../../../types";
 
 type Props<T> = {
     headers: TableHeader<T>[];
-    sortBy: (index: number) => () => void;
+    sortBy?: (index: number) => () => void;
 };
 
 export default function TableHeaderRow<T>({
@@ -24,7 +24,7 @@ export default function TableHeaderRow<T>({
                             <TableSortLabel
                                 active={isActive}
                                 direction={order}
-                                onClick={sortBy(index)}>
+                                onClick={sortBy && sortBy(index)}>
                                 {label || name}
                             </TableSortLabel>
                         )}

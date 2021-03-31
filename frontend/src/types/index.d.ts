@@ -50,6 +50,13 @@ export type CustomRender<T> = Partial<
     Record<keyof T, (item: T) => ReactElement>
 >;
 
+export interface TableProps<T> {
+    headers: TableHeader<T>[];
+    items: T[];
+    customRender?: CustomRender<T>;
+    sortBy?: (index: number) => () => void;
+}
+
 export type Primitive = string | boolean | number | symbol;
 
 export type Actionable = { actions: null };
