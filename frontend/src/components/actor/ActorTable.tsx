@@ -1,6 +1,7 @@
 //Imports
 import { pick } from "lodash";
 import { Dispatch, ReactElement, SetStateAction } from "react";
+import useSort from "../../hooks/useSort";
 //App Imports
 import { Actor } from "../../store/models";
 import { TableHeader } from "../../types";
@@ -27,6 +28,7 @@ export default function ActorTable(p: Props<Actor>): ReactElement {
         { name: "mobile_phone", isActive: false, label: "Mobile" },
     ];
 
+    const { sortedHeaders, sortedItems, sortBy } = useSort(headers, items);
     const setAndCleanActor = (actor: Actor) => {
         setActor(
             pick(actor, [
@@ -41,8 +43,9 @@ export default function ActorTable(p: Props<Actor>): ReactElement {
     };
 
     const tableProps = {
-        headers,
-        items,
+        headers: sortedHeaders,
+        items: sortedItems,
+        sortBy,
         onDeleteButton(actor: Actor) {
             return () => {
                 setAndCleanActor(actor);

@@ -64,6 +64,8 @@ export type ActionType<T> = T & Actionable;
 
 export type Predicate<T> = (value: T, index: number, array: T[]) => boolean;
 
+export type Comparator<T> = (a: T, b: T) => number;
+
 export interface RadioButtonOption<T> {
     label: string;
     value: T;

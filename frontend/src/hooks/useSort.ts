@@ -1,7 +1,7 @@
 //Imports
 import { useEffect, useState } from "react";
 //App Imports
-import { TableHeader } from "../types";
+import { Comparator, TableHeader } from "../types";
 
 type Return<T> = {
     sortedHeaders: TableHeader<T>[];
@@ -11,7 +11,11 @@ type Return<T> = {
 
 export default function useSort<T>(
     headers: TableHeader<T>[],
-    items: T[]
+    items: T[],
+    comparator: (
+        prop: keyof T,
+        desc: boolean
+    ) => Comparator<T> = defaultComparator
 ): Return<T> {
     const [sortedHeaders, setSortedHeaders] = useState<TableHeader<T>[]>(
         headers.filter(({ isHidden }) => !isHidden)
@@ -21,25 +25,6 @@ export default function useSort<T>(
     useEffect(() => {
         setSortedItems(items);
     }, [items]);
-
-    function comparator(prop: keyof T, desc: boolean) {
-        return (a: T, b: T) => {
-            const order = desc ? -1 : 1;
-            if (!a[prop]) {
-                return 1 * order;
-            }
-            if (!b[prop]) {
-                return -1 * order;
-            }
-            if (a[prop] < b[prop]) {
-                return -1 * order;
-            }
-            if (a[prop] > b[prop]) {
-                return 1 * order;
-            }
-            return 0 * order;
-        };
-    }
 
     function sortBy(index: number) {
         return function () {
@@ -66,4 +51,26 @@ export default function useSort<T>(
         };
     }
     return { sortedHeaders, sortedItems, sortBy };
+}
+
+export function defaultComparator<T>(
+    prop: keyof T,
+    desc: boolean
+): Comparator<T> {
+    return (a: T, b: T) => {
+        const order = desc ? -1 : 1;
+        if (!a[prop]) {
+            return 1 * order;
+        }
+        if (!b[prop]) {
+            return -1 * order;
+        }
+        if (a[prop] < b[prop]) {
+            return -1 * order;
+        }
+        if (a[prop] > b[prop]) {
+            return 1 * order;
+        }
+        return 0 * order;
+    };
 }
