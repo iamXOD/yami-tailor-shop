@@ -11,7 +11,7 @@ import LoginForm from "./LoginForm";
 export default function LoginContainer(): ReactElement {
     const history = useHistory();
     const { isAuthenticated } = useSelector((state: State) => state.user);
-    const { doLogin, error } = useLogin();
+    const { login, error } = useLogin();
 
     isAuthenticated && history.goBack();
 
@@ -19,5 +19,5 @@ export default function LoginContainer(): ReactElement {
         return <ErrorCard error={error} />;
     }
 
-    return <LoginForm onSubmit={doLogin} />;
+    return <LoginForm onSubmit={login} />;
 }

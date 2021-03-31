@@ -1,23 +1,25 @@
 //Imports
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { omit } from "lodash";
 import { useDispatch } from "react-redux";
 import { Action } from "redux";
+import useFetch from "use-http";
 //App Imports
-import api from "../services/api";
+import { Model } from "../store/models";
 
-export default function useAdd<I>(
+type Return<T> = (item: T) => Promise<void>;
+
+export default function useAdd<I extends Model>(
     url: string,
-    reduxActionCreator: { (item: I): Action }
-): [Dispatch<SetStateAction<I | undefined>>] {
-    const [item, setItem] = useState<I>();
+    actionCreator: { (item: I): Action }
+): Return<I> {
+    const { post, response } = useFetch<I>(url);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (item) {
-            api.post(url, item)
-                .then(({ data }) => setItem(data))
-                .then(() => dispatch(reduxActionCreator(item)));
+    return async (item) => {
+        const data = await post(omit<I>(item, "id"));
+
+        if (response.ok) {
+            dispatch(actionCreator(data));
         }
-    }, [item, url]);
-    return [setItem];
+    };
 }

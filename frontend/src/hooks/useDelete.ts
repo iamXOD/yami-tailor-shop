@@ -1,22 +1,21 @@
 //Imports
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Action } from "redux";
-//App Imports
-import api from "../services/api";
+import useFetch from "use-http";
+
+type Return = (id: number) => Promise<void>;
 
 export function useDelete(
     url: string,
     actionCreator: { (id: number): Action }
-): Dispatch<SetStateAction<number | undefined>> {
-    const [id, setID] = useState<number>();
+): Return {
+    const { del, response } = useFetch(url);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (id) {
-            api.delete(url + id).then(() => dispatch(actionCreator(id)));
+    return async (id) => {
+        await del(`${id}`);
+        if (response.status === 204) {
+            dispatch(actionCreator(id));
         }
-    }, [id]);
-
-    return setID;
+    };
 }

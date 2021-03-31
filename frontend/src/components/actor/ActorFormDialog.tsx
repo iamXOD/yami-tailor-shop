@@ -28,21 +28,21 @@ export default function ActorFormDialog({
         actor
     );
 
-    const [createActor] = useAdd("actor/add", addActor);
-    const [modifyActor] = useUpdate(`actor/update`, updateActor);
+    const createActor = useAdd("actors", addActor);
+    const modifyActor = useUpdate("actors", updateActor);
 
     const isDefActor = actor.id === -1;
     const title = isDefActor ? "Add" : "Update";
     const Icon = isDefActor ? AddIcon : UpdateIcon;
     const action = isDefActor ? createActor : modifyActor;
 
-    const onSubmit = () => {
-        action(newActor);
+    const onSubmit = async () => {
+        await action(newActor);
         setNewActor(defActor);
     };
 
-    const onSubmitAndClose = () => {
-        onSubmit();
+    const onSubmitAndClose = async () => {
+        await onSubmit();
         onClose();
     };
     const onCancel = () => {

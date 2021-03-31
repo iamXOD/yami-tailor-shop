@@ -30,6 +30,7 @@ export default function ActorTable(p: Props<Actor>): ReactElement {
     const setAndCleanActor = (actor: Actor) => {
         setActor(
             pick(actor, [
+                "id",
                 "name",
                 "mobile_phone",
                 "home_phone",

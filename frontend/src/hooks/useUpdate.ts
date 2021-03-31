@@ -1,26 +1,24 @@
 //Imports
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Action } from "redux";
+import useFetch from "use-http";
 //App Imports
-import api from "../services/api";
 import { Model } from "../store/models";
 
-type Return<I> = [Dispatch<SetStateAction<I | undefined>>];
+type Return<I> = (item: I) => Promise<void>;
 
 export default function useUpdate<I extends Model>(
     url: string,
-    reduxActionCreator: { (item: I): Action }
+    actionCreator: { (item: I): Action }
 ): Return<I> {
-    const [newItem, setNewItem] = useState<I>();
+    const { put, response } = useFetch(url);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (newItem) {
-            api.put(url, newItem).then(() =>
-                dispatch(reduxActionCreator(newItem))
-            );
+    return async (item) => {
+        const data = await put(item);
+
+        if (response.ok) {
+            dispatch(actionCreator(data));
         }
-    }, [newItem, url]);
-    return [setNewItem];
+    };
 }

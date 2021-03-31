@@ -17,9 +17,9 @@ export default function ActorDeleteDialog({
     actor,
     onClose,
 }: Props): ReactElement {
-    const deleteID = useDelete("actor/delete/", removeActor);
-    const confirmDeleteDialog = () => {
-        deleteID(actor.id);
+    const del = useDelete("actors", removeActor);
+    const confirmDeleteDialog = async () => {
+        actor.id && (await del(actor.id));
         onClose();
     };
 

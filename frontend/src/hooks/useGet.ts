@@ -2,8 +2,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Action } from "redux";
-//App Imports
-import useFetch from "./useFetch";
+import useFetch from "use-http";
 
 type Return = { loading: boolean; error?: Error };
 
@@ -11,14 +10,15 @@ export default function useGet<I>(
     url: string,
     actionCreator: { (item: I): Action }
 ): Return {
-    const { loading, data, error } = useFetch<I>(url);
+    const { loading, error, response, data } = useFetch<I>(url, []);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (data) {
+        if (data && response.ok) {
             dispatch(actionCreator(data));
         }
-    }, [url, loading, error]);
+    }, [data]);
 
     return { loading, error };
 }
