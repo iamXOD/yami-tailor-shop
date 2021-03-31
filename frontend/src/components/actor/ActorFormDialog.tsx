@@ -31,7 +31,7 @@ export default function ActorFormDialog({
     const createActor = useAdd("actors", addActor);
     const modifyActor = useUpdate("actors", updateActor);
 
-    const isDefActor = actor.id === -1;
+    const isDefActor = !actor.id || actor.id === -1;
     const title = isDefActor ? "Add" : "Update";
     const Icon = isDefActor ? AddIcon : UpdateIcon;
     const action = isDefActor ? createActor : modifyActor;

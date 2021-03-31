@@ -42,7 +42,6 @@ export default function ActorDetailDialog({
                         Mobile: {mobile_phone}
                     </Typography>
                     <Typography variant="body1">
-                        {" "}
                         {home_phone && `Home: ${home_phone}`}
                     </Typography>
                     <Typography variant="body1">

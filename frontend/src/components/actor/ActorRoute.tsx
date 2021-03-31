@@ -21,7 +21,7 @@ export default function ActorRoutes(): ReactElement {
     return (
         <Switch>
             <Route exact path={`${url}/:id(\\d+)`} component={ActorContainer} />
-            <Route exact path={`${url}/`} component={ActorContainer} />
+            <Route path={`${url}/`} component={ActorContainer} />
         </Switch>
     );
 }

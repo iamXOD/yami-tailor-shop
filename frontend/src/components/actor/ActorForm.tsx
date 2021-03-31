@@ -59,7 +59,7 @@ export default function ActorForm({ actor, setActor }: Props): ReactElement {
                         placeholder="7 xxx xxxx"
                         type="number"
                         fullWidth={true}
-                        value={home_phone}
+                        value={home_phone || ""}
                         onChange={set("home_phone")}
                     />
                 </Item>
@@ -69,7 +69,7 @@ export default function ActorForm({ actor, setActor }: Props): ReactElement {
                         placeholder="example@server.tld"
                         type="email"
                         fullWidth={true}
-                        value={email}
+                        value={email || ""}
                         onChange={set("email")}
                     />
                 </Item>
