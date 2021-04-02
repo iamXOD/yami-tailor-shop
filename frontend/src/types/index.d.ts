@@ -1,5 +1,6 @@
 //Imports
 import { RadioProps } from "@material-ui/core";
+import { FormikProps } from "formik";
 import { ReactElement, ReactNode } from "react";
 //App Imports
 import { Actor, User } from "../store/models";
@@ -74,3 +75,13 @@ export interface RadioButtonOption<T> {
     color?: RadioProps["color"];
     disabled?: boolean;
 }
+
+type FormProps<T> = Pick<
+    FormikProps<T>,
+    | "errors"
+    | "values"
+    | "touched"
+    | "handleBlur"
+    | "handleChange"
+    | "getFieldProps"
+>;

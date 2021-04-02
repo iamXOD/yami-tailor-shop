@@ -1,84 +1,77 @@
 //Imports
 import { TextField } from "@material-ui/core";
 import MUIContainer from "@material-ui/core/Container";
-import { ChangeEvent, Dispatch, ReactElement } from "react";
+import { ReactElement } from "react";
 //App Imports
 import { Actor } from "../../store/models";
-import { RadioButtonOption } from "../../types";
-import { returnsInputProps } from "../../util";
+import { FormProps } from "../../types";
 import { Container, Item } from "../common/Grid";
 import RadioGroup from "../common/RadioGroup";
 
-type Props = {
-    actor: Actor;
-    setActor: Dispatch<Partial<Actor>>;
-};
-
-export default function ActorForm({ actor, setActor }: Props): ReactElement {
-    const { name, mobile_phone, home_phone, email, gender } = actor;
-
-    const genderOptions: RadioButtonOption<Actor["gender"]>[] = [
-        { label: "Female", value: "F" },
-        { label: "Male", value: "M" },
-    ];
-
-    function set(prop: keyof Actor) {
-        return (e: ChangeEvent<HTMLInputElement>) => {
-            setActor({ [prop]: e.target.value });
-        };
-    }
-
+export default function ActorForm({
+    touched,
+    errors,
+    getFieldProps,
+}: FormProps<Actor>): ReactElement {
     return (
         <MUIContainer maxWidth="md">
             <Container spacing={1}>
                 <Item xs={12}>
                     <TextField
-                        {...returnsInputProps("name")}
+                        id="name"
+                        label="Name"
                         placeholder="Yami"
                         autoFocus={true}
                         required={true}
                         fullWidth={true}
-                        value={name}
-                        onChange={set("name")}
+                        {...getFieldProps("name")}
+                        error={!!errors.name && touched.name}
+                        helperText={touched.name && errors.name}
                     />
                 </Item>
                 <Item xs={12} sm={6}>
                     <TextField
-                        {...returnsInputProps("mobile")}
+                        id="mobile_phone"
+                        label="Mobile"
                         placeholder="5 x xxxxxx"
-                        type="number"
                         required={true}
                         fullWidth={true}
-                        value={mobile_phone}
-                        onChange={set("mobile_phone")}
+                        {...getFieldProps("mobile_phone")}
+                        error={!!errors.mobile_phone && touched.mobile_phone}
+                        helperText={touched.mobile_phone && errors.mobile_phone}
                     />
                 </Item>
                 <Item xs={12} sm={6}>
                     <TextField
-                        {...returnsInputProps("home")}
+                        id="home_phone"
+                        label="Home"
                         placeholder="7 xxx xxxx"
-                        type="number"
                         fullWidth={true}
-                        value={home_phone || ""}
-                        onChange={set("home_phone")}
+                        {...getFieldProps("home_phone")}
+                        error={!!errors.home_phone && touched.home_phone}
+                        helperText={touched.home_phone && errors.home_phone}
                     />
                 </Item>
                 <Item xs={12}>
                     <TextField
-                        {...returnsInputProps("email")}
+                        id="email"
+                        label="Email"
                         placeholder="example@server.tld"
                         type="email"
                         fullWidth={true}
-                        value={email || ""}
-                        onChange={set("email")}
+                        {...getFieldProps("email")}
+                        error={!!errors.email && touched.email}
+                        helperText={touched.email && errors.email}
                     />
                 </Item>
                 <Item xs={12}>
                     <RadioGroup
-                        {...returnsInputProps("gender")}
-                        options={genderOptions}
-                        value={gender}
-                        onChange={set("gender")}
+                        label="Gender"
+                        {...getFieldProps("gender")}
+                        options={[
+                            { label: "Female", value: "F" },
+                            { label: "Male", value: "M" },
+                        ]}
                     />
                 </Item>
             </Container>

@@ -6,7 +6,7 @@ import useFetch from "use-http";
 //App Imports
 import { Model } from "../store/models";
 
-type Return<T> = (item: T) => Promise<void>;
+type Return<T> = (item: T) => Promise<boolean>;
 
 export default function useAdd<I extends Model>(
     url: string,
@@ -20,6 +20,9 @@ export default function useAdd<I extends Model>(
 
         if (response.ok) {
             dispatch(actionCreator(data));
+            return true;
+        } else {
+            return false;
         }
     };
 }
