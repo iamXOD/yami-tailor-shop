@@ -1,4 +1,5 @@
 //Imports
+import { Request } from "express";
 import path from "path";
 import winston, { createLogger, format, transports } from "winston";
 //App Imports
@@ -27,3 +28,17 @@ export const errorLogger = createLogger({
         }),
     ],
 });
+
+export function logError(level: string, error: Error): void {
+    errorLogger.log(
+        level,
+        `${new Date().toISOString()}: ${error.status} - ${error.message}`
+    );
+}
+
+export function logRequest({ method, originalUrl }: Request): void {
+    traceLogger.log(
+        "info",
+        `${new Date().toISOString()}: ${method} - ${originalUrl}`
+    );
+}

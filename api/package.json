@@ -9,7 +9,8 @@
         "start": "nodemon ./build",
         "dev": "nodemon -r ts-node/register -e ts ./src",
         "lint": "tsc --noEmit && eslint '**/*.{js,ts}' --ignore-path .gitignore --quiet --fix",
-        "build": "npm run lint && npm run build-ts"
+        "build": "npm run lint && npm run build-ts",
+        "register-ts": "node -r ts-node/register ./src/services/register.ts"
     },
     "engines": {
         "node": "15.x.x",

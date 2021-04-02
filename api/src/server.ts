@@ -3,18 +3,27 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import "reflect-metadata";
-//Routers
+//App Imports
+import {
+    auth,
+    errorHandler,
+    JSONErrorHandler,
+    requestLogger,
+} from "./middlewares";
 import routes from "./routers";
 
-//Middleware
-const app = express();
-app.use(cors());
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-//Routers
-app.use(routes);
-
-//Export
-export default app;
+export default express()
+    //Logger
+    .use(requestLogger)
+    //Middleware
+    .use(cors())
+    .use(cookieParser())
+    .use(express.json())
+    .use(express.urlencoded({ extended: true }))
+    //Auth
+    .use(auth)
+    //Routers
+    .use(routes)
+    //Error Handler
+    .use(JSONErrorHandler)
+    .use(errorHandler);

@@ -1,4 +1,4 @@
-import MaterialTypeEntity from "../models/MaterialType";
+import MaterialTypeEntity from "../../MaterialType";
 
 export const materialTypesSeed = [
     { id: 1, name: "cloth", unit: "m^2" },

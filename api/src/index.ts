@@ -4,7 +4,7 @@ import { createConnection } from "typeorm";
 //App Imports
 import config from "./config";
 import apiServer from "./server";
-import { errorLogger, traceLogger } from "./services/logger";
+import { errorLogger, traceLogger } from "./services";
 
 createConnection()
     .then((connection) => {

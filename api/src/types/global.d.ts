@@ -4,5 +4,5 @@ declare namespace Express {
     }
 }
 interface Error {
-    statusCode: number;
+    status: number;
 }

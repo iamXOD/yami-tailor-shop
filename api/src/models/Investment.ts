@@ -1,33 +1,96 @@
 //Imports
-import { IsDateString, Min } from "class-validator";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Exclude } from "class-transformer";
+import {
+    IsDateString,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsString,
+    Min,
+} from "class-validator";
+import {
+    BeforeInsert,
+    BeforeUpdate,
+    Column,
+    Entity,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+} from "typeorm";
 //App Imports
 import ActorEntity from "./Actor";
+import { addGroup, editGroup, nullable } from "./constants";
+import {
+    EntityHasUniqueProps,
+    EntityWithPropsExists,
+    idValue,
+    IsOnlyDateString,
+} from "./decorators";
 import MaterialEntity from "./Material";
 
 @Entity()
 export default class InvestmentEntity {
     @PrimaryGeneratedColumn()
+    @EntityHasUniqueProps({ Entity: InvestmentEntity }, addGroup)
+    @EntityWithPropsExists({ Entity: InvestmentEntity }, editGroup)
+    @Min(1)
+    @IsNumber({}, { message: "id must be number" })
+    @IsNotEmpty(editGroup)
+    @IsOptional(addGroup)
     id: number;
 
     @Column()
+    @IsOnlyDateString()
     @IsDateString()
-    date: Date;
+    @IsString()
+    @IsOptional()
+    date?: string;
 
-    @ManyToOne(() => ActorEntity, { eager: true })
+    @Column()
+    @EntityWithPropsExists({ Entity: ActorEntity, criteriaFn: idValue })
+    @Min(1)
+    @IsNumber({}, { message: "supplierId must be number" })
+    @IsNotEmpty(addGroup)
+    @IsOptional(editGroup)
+    supplierId: number;
+
+    @ManyToOne(() => ActorEntity, { onDelete: "SET NULL" })
+    @Exclude()
     supplier: ActorEntity;
 
-    @ManyToOne(() => MaterialEntity, { eager: true })
+    @Column()
+    @EntityWithPropsExists({ Entity: MaterialEntity, criteriaFn: idValue })
+    @Min(1)
+    @IsNumber({}, { message: "materialId must be number" })
+    @IsNotEmpty(addGroup)
+    @IsOptional(editGroup)
+    materialId: number;
+
+    @ManyToOne(() => MaterialEntity, { onDelete: "SET NULL" })
+    @Exclude()
     material: MaterialEntity;
 
     @Column()
-    @Min(0, { message: "Amount must be greater than 0" })
+    @Min(0)
+    @IsNumber({}, { message: "amount must be number" })
+    @IsNotEmpty(addGroup)
+    @IsOptional(editGroup)
     amount: number;
 
     @Column()
-    @Min(0, { message: "Total price must be greater than 0" })
+    @Min(0)
+    @IsNumber({}, { message: "total_price must be number" })
+    @IsNotEmpty(addGroup)
+    @IsOptional(editGroup)
     total_price: number;
 
-    @Column({ nullable: true })
+    @Column(nullable)
+    @IsString()
+    @IsOptional()
     description: string;
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    insertDate(): void {
+        this.date = this.date || new Date().toISOString().split("T")[0];
+    }
 }

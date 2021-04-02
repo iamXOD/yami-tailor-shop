@@ -1,52 +1,67 @@
 //Imports
 import bcrypt from "bcrypt";
-import {
-    IsNotEmpty,
-    Length,
-    Matches,
-    ValidationArguments,
-} from "class-validator";
 import { Exclude } from "class-transformer";
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import {
+    IsAlphanumeric,
+    IsBoolean,
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+    MaxLength,
+    MinLength,
+} from "class-validator";
+import {
+    BeforeInsert,
+    BeforeUpdate,
+    Column,
+    Entity,
+    PrimaryColumn,
+} from "typeorm";
 //App Imports
 import config from "../config";
+import { addGroup, defaultsToFalse, loginGroup } from "./constants";
+import { EntityHasUniqueProps, EntityWithPropsExists } from "./decorators";
+
+const usernameValue = (v: string) => ({ username: v.toLowerCase() });
 
 @Entity()
 export default class UserEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
-    @IsNotEmpty({ message: "Username is required" })
-    @Length(3, 30, {
-        message: ({ value }: ValidationArguments) =>
-            value?.length < 3
-                ? "Username must be at least 3 characters long"
-                : "Username must be under 30 characters",
-    })
-    @Matches(/^[a-zA-Z0-9]+$/, {
-        message: "Username must only contain letters and numbers",
-    })
+    @PrimaryColumn()
+    @EntityWithPropsExists(
+        { Entity: UserEntity, criteriaFn: usernameValue },
+        loginGroup
+    )
+    @EntityHasUniqueProps(
+        {
+            Entity: UserEntity,
+            criteriaFn: usernameValue,
+        },
+        addGroup
+    )
+    @IsAlphanumeric()
+    @MaxLength(30)
+    @MinLength(3)
+    @IsString()
+    @IsNotEmpty()
     username: string;
 
-    @Length(8, 60, {
-        message: ({ value }: ValidationArguments) =>
-            value?.length < 8
-                ? "Password must be at least 8 characters long"
-                : "Password must be under 60 characters",
-    })
-    @IsNotEmpty({ message: "Password is required" })
+    @MaxLength(60)
+    @MinLength(8)
+    @IsNotEmpty()
+    @IsString()
     password: string;
 
     @Column()
     @Exclude()
     salted_password: string;
 
-    @Column({ default: false })
-    admin: false;
+    @Column(defaultsToFalse)
+    @IsBoolean()
+    @IsOptional()
+    admin: boolean;
 
     @BeforeInsert()
+    @BeforeUpdate()
     async hashPassword(): Promise<void> {
         this.salted_password = await bcrypt.hash(
             this.password,
@@ -55,6 +70,7 @@ export default class UserEntity {
     }
 
     @BeforeInsert()
+    @BeforeUpdate()
     lowercaseName(): void {
         this.username = this.username.toLowerCase();
     }
