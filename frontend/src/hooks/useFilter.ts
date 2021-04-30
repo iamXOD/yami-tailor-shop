@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export type Predicate<T> = (value: T, index: number, array: T[]) => boolean;
 type Return<I> = [I[], string, (search: string) => void];
 
-export default function useFilter<I>(
+export function useFilter<I>(
     items: I[],
     filter: (query: string) => Predicate<I>
 ): Return<I> {
@@ -18,3 +18,5 @@ export default function useFilter<I>(
 
     return [filteredItems, search, setSearch];
 }
+
+export default useFilter;

@@ -1,5 +1,6 @@
-// Configurations for Frontend
+//Imports
 import dotenv from "dotenv";
+//App Imports
 import { removeTrailingSlash } from "../util";
 
 interface Config {

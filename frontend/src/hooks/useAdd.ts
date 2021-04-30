@@ -8,7 +8,7 @@ import { Model } from "../store";
 
 type Return<T> = (item: T) => Promise<boolean>;
 
-export default function useAdd<I extends Model>(
+export function useAdd<I extends Model>(
     url: string,
     actionCreator: { (item: I): Action }
 ): Return<I> {
@@ -26,3 +26,5 @@ export default function useAdd<I extends Model>(
         }
     };
 }
+
+export default useAdd;

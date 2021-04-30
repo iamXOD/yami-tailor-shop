@@ -8,7 +8,7 @@ type Props = {
 type Reset = { (): void };
 type Return = [Props, Reset, Dispatch<SetStateAction<string>>];
 
-export default function useInput(initialValue: string): Return {
+export function useInput(initialValue: string): Return {
     const [value, setValue] = useState(initialValue);
     return [
         {
@@ -20,3 +20,5 @@ export default function useInput(initialValue: string): Return {
         setValue,
     ];
 }
+
+export default useInput;

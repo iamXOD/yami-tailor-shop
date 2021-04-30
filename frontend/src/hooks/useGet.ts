@@ -6,7 +6,7 @@ import useFetch from "use-http";
 
 type Return = { loading: boolean; error?: Error };
 
-export default function useGet<I>(
+export function useGet<I>(
     url: string,
     actionCreator: { (item: I): Action }
 ): Return {
@@ -22,3 +22,5 @@ export default function useGet<I>(
 
     return { loading, error };
 }
+
+export default useGet;

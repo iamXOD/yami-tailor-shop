@@ -7,7 +7,7 @@ import { Model } from "../store";
 
 type Return<I> = (item: I) => Promise<void>;
 
-export default function useUpdate<I extends Model>(
+export function useUpdate<I extends Model>(
     url: string,
     actionCreator: { (item: I): Action }
 ): Return<I> {
@@ -22,3 +22,4 @@ export default function useUpdate<I extends Model>(
         }
     };
 }
+export default useUpdate;

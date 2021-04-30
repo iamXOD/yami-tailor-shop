@@ -1,8 +1,8 @@
 //Imports
 import { combineReducers, createStore } from "redux";
 //App Imports
-import { Actor, actorReducer, ActorState } from "./actor";
-import { User, userReducer, UserState } from "./user";
+import { Actor, actorReducer, ActorState } from "../actor/store";
+import { User, userReducer, UserState } from "../user/store";
 
 export interface State {
     user: UserState;

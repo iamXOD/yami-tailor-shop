@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 //App Imports
 import App from "./app";
-import FetchProvider from "./components/FetchProvider";
+import { FetchProvider } from "./layout";
 import store from "./store";
 
 //Render App
