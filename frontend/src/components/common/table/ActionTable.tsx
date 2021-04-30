@@ -4,16 +4,13 @@ import UpdateIcon from "@material-ui/icons/Edit";
 import DetailIcon from "@material-ui/icons/Info";
 import { ReactElement } from "react";
 //App Imports
-import {
-    Actionable,
-    ActionType,
-    CustomRender,
-    TableHeader,
-    TableProps,
-} from "../../../types";
 import IconButton from "../IconButton";
-import Table from "./Table";
+import Table, { TableProps } from "./Table";
+import { CustomRender } from "./TableBodyRow";
+import { TableHeader } from "./TableHeaderRow";
 
+export type Actionable = { actions: null };
+export type ActionType<T> = T & Actionable;
 type Props<T> = {
     onDetailButton: (item: T) => () => void;
     onDeleteButton: (item: T) => () => void;

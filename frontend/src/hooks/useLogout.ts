@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 //App Imports
 import { removeTOKEN } from "../services/storage";
-import { userLogout } from "../store/user/actions";
+import { userLogout } from "../store/user";
 
 type Return = [{ (): void }];
 

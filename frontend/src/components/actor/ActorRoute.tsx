@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 //App Imports
 import useGet from "../../hooks/useGet";
-import { getActors } from "../../store/actor/actions";
+import { getActors } from "../../store/actor";
 import ErrorCard from "../common/ErrorCard";
 import Loading from "../common/Loading";
 import ActorContainer from "./ActorContainer";

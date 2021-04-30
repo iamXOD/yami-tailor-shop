@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Action } from "redux";
 import useFetch from "use-http";
 //App Imports
-import { Model } from "../store/models";
+import { Model } from "../store";
 
 type Return<T> = (item: T) => Promise<boolean>;
 

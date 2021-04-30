@@ -1,6 +1,6 @@
 //App Imports
 import { TODO } from "../../types";
-import { User } from "../models";
+import { User } from "./reducer";
 
 export const USER_LOGIN = "USER/LOGIN";
 export const USER_LOGOUT = "USER/LOGOUT";

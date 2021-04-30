@@ -1,11 +1,11 @@
 //Imports
 import { pick } from "lodash";
 import { Dispatch, ReactElement, SetStateAction } from "react";
-import useSort from "../../hooks/useSort";
 //App Imports
-import { Actor } from "../../store/models";
-import { TableHeader } from "../../types";
+import useSort from "../../hooks/useSort";
+import { Actor } from "../../store/actor";
 import ActionTable from "../common/table/ActionTable";
+import { TableHeader } from "../common/table/TableHeaderRow";
 
 type Props<T> = {
     items: T[];

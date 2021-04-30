@@ -4,11 +4,11 @@ import { pick } from "lodash";
 import { ReactElement, ReactNode, useState } from "react";
 import { useSelector } from "react-redux";
 //App Imports
-import { DrawerMenuItem, State } from "../../types";
+import { State } from "../../store";
 import UserButtonLogged from "../user/button/LoggedButton";
 import UserButtonLogin from "../user/button/LoginButton";
 import AppBar from "./AppBar";
-import Drawer from "./Drawer";
+import Drawer, { DrawerMenuItem } from "./Drawer";
 
 type Props = { drawerItems: DrawerMenuItem; children: ReactNode };
 

@@ -2,8 +2,7 @@
 import { ReactElement } from "react";
 //App Imports
 import { useDelete } from "../../hooks/useDelete";
-import { removeActor } from "../../store/actor/actions";
-import { Actor } from "../../store/models";
+import { Actor, removeActor } from "../../store/actor";
 import ConfirmDialog from "../common/ConfirmDialog";
 
 type Props = {

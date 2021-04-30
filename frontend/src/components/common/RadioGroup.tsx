@@ -4,12 +4,19 @@ import {
     FormControlLabel,
     FormLabel,
     Radio,
+    RadioProps,
 } from "@material-ui/core";
 import MUIRadioGroup from "@material-ui/core/RadioGroup";
-import { ChangeEvent, ReactElement } from "react";
-//App Imports
-import { RadioButtonOption } from "../../types";
+import { ChangeEvent, ReactElement, ReactNode } from "react";
 
+export interface RadioButtonOption<T> {
+    label: string;
+    value: T;
+    icon?: ReactNode;
+    checkedIcon?: ReactNode;
+    color?: RadioProps["color"];
+    disabled?: boolean;
+}
 type Props<T> = {
     label: string;
     name: string;

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 //App Imports
 import useLogin from "../../hooks/useLogin";
-import { State } from "../../types";
+import { State } from "../../store";
 import ErrorCard from "../common/ErrorCard";
 import LoginForm from "./LoginForm";
 

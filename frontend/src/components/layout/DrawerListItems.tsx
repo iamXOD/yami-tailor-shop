@@ -1,8 +1,12 @@
 //Imports
 import { ReactElement } from "react";
 //App Imports
-import { DrawerCollection } from "../../types";
-import DrawerNavItem from "./DrawerNavItem";
+import DrawerNavItem, { DrawerItem } from "./DrawerNavItem";
+
+export interface DrawerCollection {
+    name?: string;
+    items: DrawerItem[];
+}
 
 type Props = { items: DrawerCollection["items"]; onClick: { (): void } };
 

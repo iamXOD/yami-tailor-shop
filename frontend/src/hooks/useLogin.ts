@@ -4,8 +4,7 @@ import { useDispatch } from "react-redux";
 import useFetch from "use-http";
 //App Imports
 import { saveTOKEN } from "../services/storage";
-import { User } from "../store/models";
-import { userLogin } from "../store/user/actions";
+import { User, userLogin } from "../store/user";
 import { isValidToken } from "../util";
 
 type Return = {

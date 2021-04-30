@@ -8,8 +8,7 @@ import * as Yup from "yup";
 //App Imports
 import useAdd from "../../hooks/useAdd";
 import useUpdate from "../../hooks/useUpdate";
-import { addActor, updateActor } from "../../store/actor/actions";
-import { Actor } from "../../store/models";
+import { Actor, addActor, updateActor } from "../../store/actor";
 import Dialog from "../common/Dialog";
 import ActorForm from "./ActorForm";
 

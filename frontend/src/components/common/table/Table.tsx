@@ -2,9 +2,15 @@
 import { TableBody, TableHead } from "@material-ui/core";
 import MUITable from "@material-ui/core/Table";
 import { ReactElement } from "react";
-import { TableProps } from "../../../types";
-import TableBodyRow from "./TableBodyRow";
-import TableHeaderRow from "./TableHeaderRow";
+import TableBodyRow, { CustomRender } from "./TableBodyRow";
+import TableHeaderRow, { TableHeader } from "./TableHeaderRow";
+
+export interface TableProps<T> {
+    headers: TableHeader<T>[];
+    items: T[];
+    customRender?: CustomRender<T>;
+    sortBy?: (index: number) => () => void;
+}
 
 export default function Table<T>({
     headers,

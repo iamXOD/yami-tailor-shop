@@ -1,5 +1,5 @@
 //App Imports
-import { Actor } from "../models";
+import { Actor } from "./reducer";
 
 export const ACTOR_ADD = "ACTOR/ADD";
 export const ACTOR_UPDATE = "ACTOR/UPDATE";

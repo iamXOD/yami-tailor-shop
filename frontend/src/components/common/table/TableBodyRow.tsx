@@ -2,8 +2,12 @@
 import { TableCell, TableRow } from "@material-ui/core";
 import { ReactElement } from "react";
 //App Imports
-import { CustomRender, TableHeader } from "../../../types";
 import { isPrimitive } from "../../../util";
+import { TableHeader } from "./TableHeaderRow";
+
+export type CustomRender<T> = Partial<
+    Record<keyof T, (item: T) => ReactElement>
+>;
 
 type Props<T> = {
     headers: TableHeader<T>[];

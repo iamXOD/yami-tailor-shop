@@ -1,8 +1,9 @@
 //Imports
 import { useEffect, useState } from "react";
 //App Imports
-import { Comparator, TableHeader } from "../types";
+import { TableHeader } from "../components/common/table/TableHeaderRow";
 
+export type Comparator<T> = (a: T, b: T) => number;
 type Return<T> = {
     sortedHeaders: TableHeader<T>[];
     sortedItems: T[];

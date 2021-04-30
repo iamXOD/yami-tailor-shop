@@ -3,8 +3,9 @@ import { List, ListSubheader } from "@material-ui/core";
 import MUIDrawer, { DrawerProps } from "@material-ui/core/Drawer";
 import { Fragment, ReactElement } from "react";
 //App Imports
-import { DrawerMenuItem } from "../../types";
-import DrawerListItems from "./DrawerListItems";
+import DrawerListItems, { DrawerCollection } from "./DrawerListItems";
+
+export type DrawerMenuItem = DrawerCollection[];
 
 type Props = {
     classes: Record<string, string>;

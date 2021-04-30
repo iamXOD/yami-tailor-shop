@@ -1,5 +1,4 @@
 //App Imports
-import { ActorState } from "../../types";
 import {
     ActorAction,
     ACTOR_ADD,
@@ -8,12 +7,24 @@ import {
     ACTOR_UPDATE,
 } from "./actions";
 
-const initialActorState = { actors: [] };
+export interface Actor {
+    id?: number;
+    name: string;
+    mobile_phone: string;
+    home_phone?: string;
+    gender: "F" | "M";
+    email?: string;
+}
 
-export default function actorReducers(
+export interface ActorState {
+    actors: Actor[];
+}
+const initialActorState: ActorState = { actors: [] };
+
+export const actorReducer = (
     state: ActorState = initialActorState,
     action: ActorAction
-): ActorState {
+): ActorState => {
     switch (action.type) {
         case ACTOR_ADD:
             return { ...state, actors: [...state.actors, action.actor] };
@@ -42,4 +53,4 @@ export default function actorReducers(
         default:
             return state;
     }
-}
+};

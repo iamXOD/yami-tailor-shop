@@ -4,10 +4,10 @@ import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 //App Imports
-import useFilter from "../../hooks/useFilter";
+import useFilter, { Predicate } from "../../hooks/useFilter";
 import useToggler from "../../hooks/useToggler";
-import { Actor } from "../../store/models";
-import { Predicate, State } from "../../types";
+import { State } from "../../store";
+import { Actor } from "../../store/actor";
 import AddButton from "../common/FabAddButton";
 import Search from "../common/SearchField";
 import Delete from "./ActorDeleteDialog";

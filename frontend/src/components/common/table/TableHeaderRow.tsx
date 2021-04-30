@@ -1,8 +1,15 @@
 //Imports
 import { TableCell, TableRow, TableSortLabel } from "@material-ui/core";
 import { ReactElement } from "react";
-//App Imports
-import { TableHeader } from "../../../types";
+
+export interface TableHeader<T> {
+    name: keyof T;
+    isHidden?: boolean;
+    isActive?: boolean;
+    isNonSortable?: boolean;
+    order?: "desc" | "asc";
+    label?: string;
+}
 
 type Props<T> = {
     headers: TableHeader<T>[];

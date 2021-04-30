@@ -4,7 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import UpdateIcon from "@material-ui/icons/Edit";
 import { ReactElement } from "react";
 //App Imports
-import { Actor } from "../../store/models";
+import { Actor } from "../../store/actor";
 import Dialog from "../common/Dialog";
 
 type Props = {

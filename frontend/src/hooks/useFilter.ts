@@ -1,8 +1,7 @@
 //Imports
 import { useEffect, useState } from "react";
-//App Imports
-import { Predicate } from "../types";
 
+export type Predicate<T> = (value: T, index: number, array: T[]) => boolean;
 type Return<I> = [I[], string, (search: string) => void];
 
 export default function useFilter<I>(

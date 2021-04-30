@@ -2,12 +2,20 @@
 import decode from "jwt-decode";
 //App Imports
 import { loadTOKEN } from "../../services/storage";
-import { UserState } from "../../types";
 import { isValidToken } from "../../util";
-import { User } from "../models";
 import { UserActionTypes, USER_LOGIN, USER_LOGOUT } from "./actions";
 
 const token = loadTOKEN();
+
+export interface User {
+    username: string;
+    admin: boolean;
+}
+
+export interface UserState {
+    isAuthenticated: boolean;
+    user: User;
+}
 
 const defaultUser: User = {
     username: "",
@@ -19,7 +27,10 @@ const initialState: UserState = {
     user: isValidToken(token) ? decode<User>(token) : defaultUser,
 };
 
-export default (state = initialState, action: UserActionTypes): UserState => {
+export const userReducer = (
+    state = initialState,
+    action: UserActionTypes
+): UserState => {
     console.log("state:", state);
     console.log("action:", action);
 

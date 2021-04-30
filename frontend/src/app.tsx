@@ -8,10 +8,10 @@ import { Route, Switch } from "react-router-dom";
 import About from "./components/About";
 import ActorRoute from "./components/actor/ActorRoute";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import { DrawerMenuItem } from "./components/layout/Drawer";
 import Layout from "./components/layout/Layout";
 import PageNotFound from "./components/PageNotFound";
 import Login from "./components/user/LoginContainer";
-import { DrawerMenuItem } from "./types";
 
 export default function App(): ReactElement {
     const items: DrawerMenuItem = [

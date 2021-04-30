@@ -1,13 +1,22 @@
 //Imports
 import { TextField } from "@material-ui/core";
 import MUIContainer from "@material-ui/core/Container";
+import { FormikProps } from "formik";
 import { ReactElement } from "react";
+import { Actor } from "../../store/actor";
 //App Imports
-import { Actor } from "../../store/models";
-import { FormProps } from "../../types";
 import { Container, Item } from "../common/Grid";
 import RadioGroup from "../common/RadioGroup";
 
+type FormProps<T> = Pick<
+    FormikProps<T>,
+    | "errors"
+    | "values"
+    | "touched"
+    | "handleBlur"
+    | "handleChange"
+    | "getFieldProps"
+>;
 export default function ActorForm({
     touched,
     errors,
