@@ -1,11 +1,10 @@
 //Imports
-import { TextField } from "@material-ui/core";
-import MUIContainer from "@material-ui/core/Container";
+import { Container as MUIContainer, TextField } from "@material-ui/core";
 import { FormikProps } from "formik";
 import { ReactElement } from "react";
 //App Imports
+import { Actor } from "..";
 import { Container, Item, RadioGroup } from "../../components";
-import { Actor } from "../store";
 
 type FormProps<T> = Pick<
     FormikProps<T>,

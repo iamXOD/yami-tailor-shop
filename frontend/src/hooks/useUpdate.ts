@@ -1,25 +1,19 @@
 //Imports
-import { useDispatch } from "react-redux";
-import { Action } from "redux";
 import useFetch from "use-http";
 //App Imports
 import { Model } from "../store";
 
-type Return<I> = (item: I) => Promise<void>;
-
-export function useUpdate<I extends Model>(
-    url: string,
-    actionCreator: { (item: I): Action }
-): Return<I> {
+export function useUpdate<T extends Model>(
+    url: string
+): (item: T) => Promise<T> {
     const { put, response } = useFetch(url);
-    const dispatch = useDispatch();
 
     return async (item) => {
         const data = await put(item);
-
-        if (response.ok) {
-            dispatch(actionCreator(data));
+        if (!response.ok) {
+            throw response.data;
         }
+        return data;
     };
 }
 export default useUpdate;

@@ -1,26 +1,16 @@
 //Imports
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Action } from "redux";
 import useFetch from "use-http";
 
-type Return = { loading: boolean; error?: Error };
+export function useGet<T>(url: string): (id: number) => Promise<T> {
+    const { response, get } = useFetch<T>(url);
 
-export function useGet<I>(
-    url: string,
-    actionCreator: { (item: I): Action }
-): Return {
-    const { loading, error, response, data } = useFetch<I>(url, []);
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (data && response.ok) {
-            dispatch(actionCreator(data));
+    return async (id) => {
+        const data = await get(`/${id}`);
+        if (!response.ok) {
+            throw response.data;
         }
-    }, [data]);
-
-    return { loading, error };
+        return data;
+    };
 }
 
 export default useGet;

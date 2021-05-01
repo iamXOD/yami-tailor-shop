@@ -1,7 +1,9 @@
 //Imports
-import DeleteIcon from "@material-ui/icons/Delete";
-import UpdateIcon from "@material-ui/icons/Edit";
-import DetailIcon from "@material-ui/icons/Info";
+import {
+    Delete as DeleteIcon,
+    Edit as UpdateIcon,
+    Info as DetailsIcon,
+} from "@material-ui/icons";
 import { ReactElement } from "react";
 //App Imports
 import { IconButton } from "../components";
@@ -9,12 +11,13 @@ import { Table, TableProps } from "./Table";
 import { CustomRender } from "./TableBodyRow";
 import { TableHeader } from "./TableHeaderRow";
 
-export type Actionable = { actions: null };
-export type ActionType<T> = T & Actionable;
+export type customRenderFn<T> = (item: T) => () => void;
+type Actionable = { actions: null };
+type ActionType<T> = T & Actionable;
 type Props<T> = {
-    onDetailButton: (item: T) => () => void;
-    onDeleteButton: (item: T) => () => void;
-    onUpdateButton: (item: T) => () => void;
+    onDetailButton: customRenderFn<T>;
+    onDeleteButton: customRenderFn<T>;
+    onUpdateButton: customRenderFn<T>;
 } & TableProps<T>;
 
 export function ActionTable<T>(props: Props<T>): ReactElement {
@@ -43,7 +46,7 @@ export function ActionTable<T>(props: Props<T>): ReactElement {
             <IconButton
                 onClick={onDetailButton(item)}
                 color="primary"
-                Icon={DetailIcon}
+                Icon={DetailsIcon}
             />
             <IconButton
                 onClick={onUpdateButton(item)}
