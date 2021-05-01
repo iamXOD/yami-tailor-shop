@@ -3,8 +3,7 @@ import { Router } from "express";
 //App Imports
 import { OrderController } from "../controllers";
 import { ID_ROUTE, ROOT_ROUTE } from "./constants";
-import { addActorId, addMaterialId } from "./controller-options";
-import { OptionsFn } from "./controller-options/types";
+import { addActorId, addMaterialId, OptionsFn } from "./controller-options";
 import {
     addOrEditHandler,
     getHandler,

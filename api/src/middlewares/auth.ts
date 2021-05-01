@@ -5,7 +5,11 @@ import jwt from "jsonwebtoken";
 //App Imports
 import config from "../config";
 import UserEntity from "../models/User";
-import { Route } from "./types";
+
+interface Route {
+    url: string;
+    method?: string[];
+}
 
 const OpenRoutes: Route[] = [{ url: "/login", method: ["POST"] }];
 

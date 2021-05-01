@@ -3,15 +3,15 @@ import { plainToClass } from "class-transformer";
 import jwt from "jsonwebtoken";
 import { getRepository } from "typeorm";
 //App Imports
+import {
+    addOrEditControllerType as addOrEditController,
+    loginControllerType,
+} from ".";
 import config from "../config";
 import { AuthenticationError, validateAndThrowError } from "../errors";
 import UserEntity from "../models/User";
 import { addGroupAlways, loginGroupAlways } from "./constants";
 import { getController, listController } from "./GenericController";
-import {
-    addOrEditControllerType as addOrEditController,
-    loginControllerType,
-} from "./types";
 
 export const list = listController(UserEntity);
 

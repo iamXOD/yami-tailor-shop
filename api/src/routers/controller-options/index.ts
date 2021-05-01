@@ -1,5 +1,11 @@
 //App Imports
-import { OptionsFn } from "./types";
+import { Request } from "express";
+import { GetOptions, ListOptions } from "../../controllers";
+
+export type OptionsFn<T = any, O = GetOptions<T> | ListOptions<T>> = (
+    request: Request,
+    options?: O
+) => O;
 
 export const addPagination: OptionsFn = (req, options) => {
     const page = Number(req.query.page) || 1;

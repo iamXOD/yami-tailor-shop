@@ -9,10 +9,9 @@ import {
     ListOptions,
     loginControllerType,
     removeControllerType,
-} from "../controllers/types";
+} from "../controllers";
 import { ID_ROUTE, ROOT_ROUTE } from "./constants";
-import { addId, addName, addPagination } from "./controller-options";
-import { OptionsFn } from "./controller-options/types";
+import { addId, addName, addPagination, OptionsFn } from "./controller-options";
 
 export function listHandler<T>(
     list: listControllerType<T>,

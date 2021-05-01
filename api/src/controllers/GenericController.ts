@@ -4,14 +4,31 @@ import { ClassConstructor, plainToClass } from "class-transformer";
 import { getRepository } from "typeorm";
 //App Imports
 import { EntityNotFoundError, validateAndThrowError } from "../errors";
+import UserEntity from "../models/User";
 import { addGroupAlways, editGroupAlways } from "./constants";
-import {
-    addOrEditControllerType,
-    ControllerType,
-    getControllerType,
-    listControllerType,
-    removeControllerType,
-} from "./types";
+
+export type listControllerType<T> = (options: ListOptions<T>) => Promise<T[]>;
+export type getControllerType<T> = (options: GetOptions<T>) => Promise<T>;
+export type addOrEditControllerType<T> = (item: T) => Promise<T>;
+export type removeControllerType<T> = (options: GetOptions<T>) => Promise<void>;
+export type loginControllerType = (user: UserEntity) => Promise<string>;
+
+export interface ControllerType<T> {
+    list: listControllerType<T>;
+    get: getControllerType<T>;
+    add: addOrEditControllerType<T>;
+    edit: addOrEditControllerType<T>;
+    remove: removeControllerType<T>;
+}
+
+export interface GetOptions<T = any> {
+    where?: Partial<T>;
+}
+
+export interface ListOptions<T = any> extends GetOptions<T> {
+    skip: number;
+    take: number;
+}
 
 export function listController<T extends Record<string, any>>(
     Entity: ClassConstructor<T>
@@ -80,7 +97,7 @@ export function removeController<T extends Record<string, any>>(
     };
 }
 
-export default function GenericController<T extends Record<string, any>>(
+export function GenericController<T extends Record<string, any>>(
     Entity: ClassConstructor<T>
 ): ControllerType<T> {
     return {
@@ -91,3 +108,5 @@ export default function GenericController<T extends Record<string, any>>(
         remove: removeController(Entity),
     };
 }
+
+export default GenericController;

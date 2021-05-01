@@ -1,8 +1,7 @@
 //Imports
 import { getRepository, MigrationInterface } from "typeorm";
 //App Imports
-import MaterialTypeEntity from "../MaterialType";
-import { materialTypesSeed } from "./seeds/materialTypes";
+import MaterialTypeEntity, { materialTypesSeed } from "../MaterialType";
 
 export class Seeds1616270994318 implements MigrationInterface {
     public async up(): Promise<void> {
