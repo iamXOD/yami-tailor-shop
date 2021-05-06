@@ -10,7 +10,7 @@ import { Route, Switch } from "react-router-dom";
 import { ActorRoute, actorURL } from "./actor";
 import { ProtectedRoute } from "./components";
 import { About, DrawerMenuItem, Layout, PageNotFound } from "./layout";
-import Login from "./user/components/LoginContainer";
+import { LoginContainer } from "./user";
 
 export default function App(): ReactElement {
     const items: DrawerMenuItem = [
@@ -22,7 +22,7 @@ export default function App(): ReactElement {
     return (
         <Layout drawerItems={items}>
             <Switch>
-                <Route path="/login" component={Login} />
+                <Route path="/login" component={LoginContainer} />
                 <ProtectedRoute path="/actors" component={ActorRoute} />
                 <Route path="/about" component={About} />
                 <Route component={PageNotFound} />

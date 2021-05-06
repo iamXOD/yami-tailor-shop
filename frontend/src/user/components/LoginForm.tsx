@@ -10,14 +10,15 @@ import {
     Theme,
     Typography,
 } from "@material-ui/core";
-import LockIcon from "@material-ui/icons/Lock";
-import NotVisibleIcon from "@material-ui/icons/VisibilityOffOutlined";
-import VisibleIcon from "@material-ui/icons/VisibilityOutlined";
+import {
+    Lock as LockIcon,
+    VisibilityOffOutlined as NotVisibleIcon,
+    VisibilityOutlined as VisibleIcon,
+} from "@material-ui/icons";
 import { ReactElement, useState } from "react";
 //App Imports
 import { Item } from "../../components";
 import { useInput } from "../../hooks";
-import { returnsInputProps } from "../../util";
 
 type Props = { onSubmit: (username: string, password: string) => void };
 
@@ -43,10 +44,6 @@ export default function LoginForm({ onSubmit }: Props): ReactElement {
 
     const [usernameProps] = useInput("");
     const [passwordProps] = useInput("");
-
-    function submit() {
-        onSubmit(usernameProps.value, passwordProps.value);
-    }
 
     const { paper, avatar, loginButton } = useStyles();
     return (
@@ -91,7 +88,9 @@ export default function LoginForm({ onSubmit }: Props): ReactElement {
             <Item xs={12}>
                 <Button
                     type="button"
-                    onClick={submit}
+                    onClick={() =>
+                        onSubmit(usernameProps.value, passwordProps.value)
+                    }
                     className={loginButton}
                     variant="contained"
                     color="primary">
@@ -100,4 +99,14 @@ export default function LoginForm({ onSubmit }: Props): ReactElement {
             </Item>
         </Container>
     );
+}
+
+function returnsInputProps(
+    name: string
+): Record<"id" | "name" | "label", string> {
+    return {
+        id: name,
+        name,
+        label: name.charAt(0).toLocaleUpperCase().concat(name.slice(1)),
+    };
 }

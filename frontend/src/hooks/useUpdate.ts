@@ -1,7 +1,7 @@
 //Imports
 import useFetch from "use-http";
 //App Imports
-import { Model } from "../store";
+import { Model } from ".";
 
 export function useUpdate<T extends Model>(
     url: string

@@ -1,15 +1,14 @@
 //Imports
 import { ReactElement } from "react";
-import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
 import { Route, RouteProps } from "react-router-dom";
 //App Imports
-import { State } from "../store";
+import { useUser } from "../user";
 
 export function ProtectedRoute(props: RouteProps): ReactElement {
-    const { isAuthenticated } = useSelector((state: State) => state.user);
+    const { user } = useUser();
 
-    if (!isAuthenticated) {
+    if (!user) {
         return <Redirect to="/login" />;
     }
     return <Route {...props} />;

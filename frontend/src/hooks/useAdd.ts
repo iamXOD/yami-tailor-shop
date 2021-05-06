@@ -1,7 +1,7 @@
 //Imports
 import useFetch from "use-http";
 //App Imports
-import { Model } from "../store";
+import { Model } from ".";
 
 export function useAdd<T extends Model>(url: string): (item: T) => Promise<T> {
     const { post, response } = useFetch<T>(url);

@@ -2,13 +2,11 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { pick } from "lodash";
 import { ReactElement, ReactNode, useState } from "react";
-import { useSelector } from "react-redux";
 //App Imports
-import { State } from "../store";
+import { useUser } from "../user";
 import AppBar from "./AppBar";
-import UserButtonLogged from "./button/LoggedButton";
-import UserButtonLogin from "./button/LoginButton";
 import { Drawer, DrawerMenuItem } from "./drawer";
+import { UserButtonLogged, UserButtonLogin } from "./LogButton";
 
 type Props = { drawerItems: DrawerMenuItem; children: ReactNode };
 
@@ -33,12 +31,8 @@ const useStyles = makeStyles(({ zIndex, mixins }: Theme) => ({
 export function Layout({ drawerItems, children }: Props): ReactElement {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const { isAuthenticated } = useSelector((state: State) => state.user);
-    const RightButton = isAuthenticated ? (
-        <UserButtonLogged />
-    ) : (
-        <UserButtonLogin />
-    );
+    const { user } = useUser();
+    const RightButton = user ? <UserButtonLogged /> : <UserButtonLogin />;
     const [title, setTitle] = useState<string>("Yami Tailor Shop");
     const close = (title?: string) => () => {
         setOpen(false);

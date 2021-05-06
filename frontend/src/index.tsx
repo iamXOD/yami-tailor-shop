@@ -1,20 +1,19 @@
 //Imports
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 //App Imports
 import App from "./app";
 import { FetchProvider } from "./layout";
-import store from "./store";
+import { UserProvider } from "./user";
 
 //Render App
 ReactDOM.render(
-    <Provider store={store}>
+    <UserProvider>
         <FetchProvider>
             <Router>
                 <App />
             </Router>
         </FetchProvider>
-    </Provider>,
+    </UserProvider>,
     document.getElementById("root")
 );
