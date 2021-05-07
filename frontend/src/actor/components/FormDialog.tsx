@@ -1,6 +1,6 @@
 //Imports
 import { Button, Typography } from "@material-ui/core";
-import { Add as AddIcon, Update as UpdateIcon } from "@material-ui/icons";
+import { Add as AddIcon, Edit as UpdateIcon } from "@material-ui/icons";
 import { useFormik } from "formik";
 import { ReactElement } from "react";
 import * as Yup from "yup";
