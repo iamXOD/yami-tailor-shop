@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { ReactElement } from "react";
 import * as Yup from "yup";
 //App Imports
-import { Actor } from "..";
+import { Actor, migrateActor } from "..";
 import { Dialog } from "../../components";
 import ActorForm from "./Form";
 
@@ -15,6 +15,7 @@ type Props = {
     onSubmit: (actor: Actor) => Promise<Actor>;
     actor: Actor;
 };
+
 const mobilePhoneRegex = /^5[2-9][0-9]{6}$/;
 const housePhoneRegex = /^\d{8}$/;
 
@@ -30,7 +31,7 @@ export default function ActorFormDialog({
 
     const formik = useFormik({
         enableReinitialize: true,
-        initialValues: actor,
+        initialValues: migrateActor(actor, replaceUndefinedByEmptyString),
         onSubmit: submit,
         validationSchema: Yup.object().shape({
             name: Yup.string()
@@ -101,4 +102,8 @@ export default function ActorFormDialog({
             }
         />
     );
+}
+
+function replaceUndefinedByEmptyString(value?: string) {
+    return !value ? "" : value;
 }

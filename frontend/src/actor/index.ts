@@ -15,6 +15,17 @@ export const defaultActor: Actor = {
     gender: "F",
 };
 
+export function migrateActor(
+    actor: Actor,
+    fn: (value?: string) => string | undefined
+): Actor {
+    return {
+        ...actor,
+        email: fn(actor.email),
+        home_phone: fn(actor.home_phone),
+    };
+}
+
 export const actorURL = "/actors";
 
 export * from "./components/Route";

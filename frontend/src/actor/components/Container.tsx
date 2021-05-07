@@ -3,7 +3,7 @@ import { Container } from "@material-ui/core";
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router";
 //App Imports
-import { Actor, actorURL, defaultActor } from "..";
+import { Actor, actorURL, defaultActor, migrateActor } from "..";
 import { ErrorCard, FabAddButton, Loading } from "../../components";
 import {
     useAdd,
@@ -90,7 +90,8 @@ export function ActorContainer(): ReactElement {
         actor,
         onClose: closeForm,
         onSubmit: async (actor: Actor) => {
-            return actor.id ? await update(actor) : await add(actor);
+            const apiActor = migrateActor(actor, replaceEmptyStringByUndefined);
+            return actor.id ? await update(apiActor) : await add(apiActor);
         },
     };
 
@@ -112,3 +113,7 @@ export function ActorContainer(): ReactElement {
 }
 
 export default ActorContainer;
+
+function replaceEmptyStringByUndefined(value?: string) {
+    return value === "" ? undefined : value;
+}
