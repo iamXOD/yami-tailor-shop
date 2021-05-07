@@ -1,6 +1,10 @@
 //Imports
-import { CircularProgress, Theme, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {
+    CircularProgress,
+    makeStyles,
+    Theme,
+    Typography,
+} from "@material-ui/core";
 import { ReactElement } from "react";
 //App Imports
 import { Container, Item } from "./Grid";
