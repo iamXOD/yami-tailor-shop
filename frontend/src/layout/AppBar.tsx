@@ -1,7 +1,12 @@
 //Imports
-import { IconButton, Toolbar, Typography } from "@material-ui/core";
-import MUIAppBar, { AppBarProps } from "@material-ui/core/AppBar";
-import MenuIcon from "@material-ui/icons/Menu";
+import {
+    AppBar as MUIAppBar,
+    AppBarProps,
+    IconButton,
+    Toolbar,
+    Typography,
+} from "@material-ui/core";
+import { Menu as MenuIcon } from "@material-ui/icons";
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 

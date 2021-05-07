@@ -1,12 +1,12 @@
 //Imports
 import {
     Button,
+    Dialog as MUIDialog,
     DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
 } from "@material-ui/core";
-import MUIDialog from "@material-ui/core/Dialog";
 import { ReactElement } from "react";
 
 type Props = {

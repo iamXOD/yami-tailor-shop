@@ -9,7 +9,7 @@ import {
 } from "react";
 //App Imports
 import { User } from ".";
-import { loadTOKEN } from "../services/storage";
+import { storage as st } from "../services";
 
 interface UserContextValues {
     user?: User;
@@ -17,7 +17,7 @@ interface UserContextValues {
     logout: () => void;
 }
 
-const token = loadTOKEN();
+const token = st.loadTOKEN();
 const initialUser = token ? decode<User>(token) : undefined;
 
 const UserContext = createContext<UserContextValues | undefined>(undefined);

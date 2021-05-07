@@ -9,7 +9,8 @@ import { Route, Switch } from "react-router-dom";
 //App Imports
 import { ActorRoute, actorURL } from "./actor";
 import { ProtectedRoute } from "./components";
-import { About, DrawerMenuItem, Layout, PageNotFound } from "./layout";
+import { DrawerMenuItem, Layout } from "./layout";
+import { About, PageNotFound } from "./pages";
 import { LoginContainer } from "./user";
 
 export default function App(): ReactElement {

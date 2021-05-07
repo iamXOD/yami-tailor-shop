@@ -3,7 +3,7 @@ import { ReactElement, ReactNode } from "react";
 import { FetchProviderProps, Provider } from "use-http";
 //App Imports
 import config from "../config";
-import { loadTOKEN } from "../services/storage";
+import { storage as st } from "../services";
 
 type Props = { children: ReactNode };
 
@@ -23,7 +23,7 @@ const options: FetchProviderProps["options"] = {
             options.headers = {
                 ...options.headers,
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${loadTOKEN()}`,
+                Authorization: `Bearer ${st.loadTOKEN()}`,
             };
             return options;
         },

@@ -2,13 +2,18 @@
 import { ReactElement } from "react";
 //App Imports
 import { Actor } from "..";
-import { ActionTable, customRenderFn, TableHeader, useSort } from "../../table";
+import {
+    ActionTable,
+    CustomRenderFn,
+    TableHeader,
+    useSort,
+} from "../../components";
 
 type Props<T> = {
     items: T[];
-    onDeleteButton: customRenderFn<T>;
-    onDetailButton: customRenderFn<T>;
-    onUpdateButton: customRenderFn<T>;
+    onDeleteButton: CustomRenderFn<T>;
+    onDetailButton: CustomRenderFn<T>;
+    onUpdateButton: CustomRenderFn<T>;
 };
 
 export default function ActorTable(props: Props<Actor>): ReactElement {

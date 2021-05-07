@@ -1,7 +1,6 @@
 //Imports
-import Button, { ButtonProps } from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import BackIcon from "@material-ui/icons/ArrowBack";
+import { Button, ButtonProps, IconButton } from "@material-ui/core";
+import { ArrowBack as BackIcon } from "@material-ui/icons";
 import { ReactElement } from "react";
 import { useHistory } from "react-router-dom";
 

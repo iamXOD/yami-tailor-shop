@@ -1,7 +1,5 @@
 //Imports
 import dotenv from "dotenv";
-//App Imports
-import { removeTrailingSlash } from "../util";
 
 interface Config {
     NODE_ENV: string;
@@ -17,3 +15,7 @@ const config: Config = {
 };
 
 export default config;
+
+function removeTrailingSlash(url: string): string {
+    return url.endsWith("/") ? url.substring(0, url.length - 1) : url;
+}

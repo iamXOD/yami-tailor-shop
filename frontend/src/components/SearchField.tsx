@@ -1,6 +1,6 @@
 //Imports
 import { InputAdornment, TextField } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
+import { Search as SearchIcon } from "@material-ui/icons";
 import { ChangeEvent, ReactElement } from "react";
 
 type Props = {

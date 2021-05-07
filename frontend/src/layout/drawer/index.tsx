@@ -1,6 +1,10 @@
 //Imports
-import { List, ListSubheader } from "@material-ui/core";
-import MUIDrawer, { DrawerProps } from "@material-ui/core/Drawer";
+import {
+    Drawer as MUIDrawer,
+    DrawerProps,
+    List,
+    ListSubheader,
+} from "@material-ui/core";
 import { Fragment, ReactElement } from "react";
 //App Imports
 import { DrawerCollection, DrawerListItems } from "./DrawerListItems";
@@ -12,7 +16,7 @@ type Props = {
     items: DrawerMenuItem;
     variant?: DrawerProps["variant"];
     open?: boolean;
-    onClose: { (title?: string): { (): void } };
+    onClose: (title?: string) => () => void;
 };
 
 export const Drawer = (props: Props): ReactElement => {

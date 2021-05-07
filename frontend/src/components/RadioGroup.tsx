@@ -4,9 +4,9 @@ import {
     FormControlLabel,
     FormLabel,
     Radio,
+    RadioGroup as MUIRadioGroup,
     RadioProps,
 } from "@material-ui/core";
-import MUIRadioGroup from "@material-ui/core/RadioGroup";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
 
 export interface RadioButtonOption<T> {

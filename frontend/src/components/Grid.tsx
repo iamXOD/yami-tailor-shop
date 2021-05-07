@@ -1,6 +1,5 @@
 //Imports
-import { GridProps } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+import { Grid, GridProps } from "@material-ui/core";
 import { ReactElement } from "react";
 
 export function Item(props: Omit<GridProps, "item">): ReactElement {

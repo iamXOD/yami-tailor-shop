@@ -1,19 +1,22 @@
 //Imports
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { ReactElement } from "react";
+import {
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    SvgIconProps,
+} from "@material-ui/core";
+import { ComponentType, ReactElement } from "react";
 import { Link } from "react-router-dom";
-//App Imports
-import { TODO } from "../../types";
 
 export interface DrawerItem {
     label: string;
-    Icon?: TODO;
+    Icon?: ComponentType<SvgIconProps>;
     url: string;
     hidden?: boolean;
     disabled?: boolean;
 }
 
-type Props = { item: DrawerItem; onClick: { (): void } };
+type Props = { item: DrawerItem; onClick: () => void };
 
 export const DrawerNavItem = ({ item, onClick }: Props): ReactElement => {
     const { label, url, disabled, Icon } = item;

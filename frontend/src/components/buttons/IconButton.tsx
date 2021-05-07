@@ -1,11 +1,13 @@
 //Imports
-import MUIIconButton, { IconButtonProps } from "@material-ui/core/IconButton";
-import { ReactElement } from "react";
-//App Imports
-import { TODO } from "../types";
+import {
+    IconButton as MUIIconButton,
+    IconButtonProps,
+    SvgIconProps,
+} from "@material-ui/core";
+import { ComponentType, ReactElement } from "react";
 
 type Props = {
-    Icon: TODO;
+    Icon: ComponentType<SvgIconProps>;
     onClick: () => void;
     color?: IconButtonProps["color"];
     text?: string;

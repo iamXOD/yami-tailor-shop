@@ -6,18 +6,18 @@ import {
 } from "@material-ui/icons";
 import { ReactElement } from "react";
 //App Imports
-import { IconButton } from "../components";
+import { IconButton } from "..";
 import { Table, TableProps } from "./Table";
 import { CustomRender } from "./TableBodyRow";
 import { TableHeader } from "./TableHeaderRow";
 
-export type customRenderFn<T> = (item: T) => () => void;
+export type CustomRenderFn<T> = (item: T) => () => void;
 type Actionable = { actions: null };
 type ActionType<T> = T & Actionable;
 type Props<T> = {
-    onDetailButton: customRenderFn<T>;
-    onDeleteButton: customRenderFn<T>;
-    onUpdateButton: customRenderFn<T>;
+    onDetailButton: CustomRenderFn<T>;
+    onDeleteButton: CustomRenderFn<T>;
+    onUpdateButton: CustomRenderFn<T>;
 } & TableProps<T>;
 
 export function ActionTable<T>(props: Props<T>): ReactElement {

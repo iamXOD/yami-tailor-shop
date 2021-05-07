@@ -6,7 +6,7 @@ import useFetch from "use-http";
 //App Imports
 import { User } from "..";
 import { ErrorCard } from "../../components";
-import { saveTOKEN } from "../../services/storage";
+import { storage as st } from "../../services";
 import { useUser } from "../Context";
 import LoginForm from "./LoginForm";
 
@@ -19,7 +19,7 @@ export function LoginContainer(): ReactElement {
         const token = await post({ username, password });
 
         if (isValidToken(token)) {
-            saveTOKEN(token);
+            st.saveTOKEN(token);
             const { username, admin } = decode<User>(token);
             login({ username, admin });
         }

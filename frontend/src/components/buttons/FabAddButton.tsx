@@ -1,7 +1,6 @@
 //Imports
-import { makeStyles } from "@material-ui/core";
-import Fab, { FabProps } from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
+import { Fab, FabProps, makeStyles } from "@material-ui/core";
+import { Add as AddIcon } from "@material-ui/icons";
 import { ReactElement } from "react";
 
 type Props = {

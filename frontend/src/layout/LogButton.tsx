@@ -1,9 +1,9 @@
 //Imports
-import Button from "@material-ui/core/Button";
+import { Button } from "@material-ui/core";
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 //App Imports
-import { removeTOKEN } from "../services/storage";
+import { storage as st } from "../services";
 import { useUser } from "../user";
 
 export function UserButtonLogin(): ReactElement {
@@ -28,7 +28,7 @@ export function UserButtonLogged(): ReactElement {
             size="small"
             color="secondary"
             onClick={() => {
-                removeTOKEN();
+                st.removeTOKEN();
                 logout();
             }}>
             Log Out

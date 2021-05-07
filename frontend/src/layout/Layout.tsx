@@ -1,5 +1,5 @@
 //Imports
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core";
 import { pick } from "lodash";
 import { ReactElement, ReactNode, useState } from "react";
 //App Imports

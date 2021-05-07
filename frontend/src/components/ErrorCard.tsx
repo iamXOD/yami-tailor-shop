@@ -4,14 +4,14 @@ import {
     CardActions,
     CardContent,
     CardHeader,
+    Container as MUIContainer,
     makeStyles,
     Theme,
     Typography,
 } from "@material-ui/core";
-import MUIContainer from "@material-ui/core/Container";
 import { ReactElement, ReactNode } from "react";
 //App Imports
-import { BackButton } from "./BackButton";
+import { BackButton } from "./buttons/BackButton";
 
 type Props = { error: Error; FixButton?: ReactNode };
 

@@ -8,7 +8,7 @@ export interface DrawerCollection {
     items: DrawerItem[];
 }
 
-type Props = { items: DrawerCollection["items"]; onClick: { (): void } };
+type Props = { items: DrawerCollection["items"]; onClick: () => void };
 
 export const DrawerListItems = ({ items, onClick }: Props): ReactElement => {
     return (
