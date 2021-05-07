@@ -1,12 +1,11 @@
 //Imports
 import useFetch from "use-http";
-//App Imports
-import { Model } from ".";
 
-export function useUpdate<T extends Model>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useUpdate<T extends Record<string, any>>(
     url: string
 ): (item: T) => Promise<T> {
-    const { put, response } = useFetch(url);
+    const { put, response } = useFetch<T>(url);
 
     return async (item) => {
         const data = await put(item);
