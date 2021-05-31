@@ -1,6 +1,8 @@
 //Imports
 import { ClassConstructor, plainToClass } from "class-transformer";
-import { EntityNotFoundError, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
+//App Imports
+import { EntityNotFoundError } from "../errors";
 
 export interface GetOptions<T = any> {
     where?: Partial<T>;
