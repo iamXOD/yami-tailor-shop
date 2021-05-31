@@ -3,16 +3,37 @@ import ActorEntity from "../models/Actor";
 import FixEntity from "../models/Fix";
 import InvestmentEntity from "../models/Investment";
 import MaterialEntity from "../models/Material";
+import MaterialTypeEntity from "../models/MaterialType";
 import OrderEntity from "../models/Order";
+import UserEntity from "../models/User";
 //Controllers
-import { GenericController } from "./GenericController";
+import { buildController } from "./buildController";
+import { getController } from "./get";
+import { listController } from "./list";
+import { loginController } from "./login";
+import { registerController } from "./register";
 
-export const ActorController = GenericController(ActorEntity);
-export const FixController = GenericController(FixEntity);
-export const InvestmentController = GenericController(InvestmentEntity);
-export const MaterialController = GenericController(MaterialEntity);
-export const OrderController = GenericController(OrderEntity);
+export const ActorController = buildController(ActorEntity);
+export const FixController = buildController(FixEntity);
+export const InvestmentController = buildController(InvestmentEntity);
+export const MaterialController = buildController(MaterialEntity);
+export const MaterialTypeController = {
+    list: listController(MaterialTypeEntity),
+    getByName: getController(MaterialTypeEntity),
+};
+export const OrderController = buildController(OrderEntity);
+export const UserController = {
+    list: listController(UserEntity),
+    getByName: getController(UserEntity),
+    register: registerController,
+    login: loginController,
+};
 
-export * from "./GenericController";
-export * as MaterialTypeController from "./MaterialType";
-export * as UserController from "./User";
+export * from "./add";
+export * from "./buildController";
+export * from "./edit";
+export * from "./get";
+export * from "./list";
+export * from "./login";
+export * from "./register";
+export * from "./remove";

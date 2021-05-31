@@ -2,19 +2,19 @@
 import { RequestHandler, Router, RouterOptions } from "express";
 //App Imports
 import {
-    addOrEditControllerType,
+    AddControllerType,
     ControllerType,
-    getControllerType,
-    listControllerType,
+    GetControllerType,
+    ListControllerType,
     ListOptions,
-    loginControllerType,
-    removeControllerType,
+    LoginControllerType,
+    RemoveControllerType,
 } from "../controllers";
 import { ID_ROUTE, ROOT_ROUTE } from "./constants";
 import { addId, addName, addPagination, OptionsFn } from "./controller-options";
 
 export function listHandler<T>(
-    list: listControllerType<T>,
+    list: ListControllerType<T>,
     optionFn?: OptionsFn<T>
 ): RequestHandler {
     return async (req, res, next) => {
@@ -33,7 +33,7 @@ export function listHandler<T>(
 }
 
 export function getHandler<T>(
-    get: getControllerType<T>,
+    get: GetControllerType<T>,
     optionFn?: OptionsFn<T>
 ): RequestHandler {
     return async (req, res, next) => {
@@ -49,7 +49,7 @@ export function getHandler<T>(
 }
 
 export function getByNameHandler<T>(
-    getByName: getControllerType<T>,
+    getByName: GetControllerType<T>,
     optionFn?: OptionsFn<T>
 ): RequestHandler {
     return async (req, res, next) => {
@@ -64,8 +64,9 @@ export function getByNameHandler<T>(
     };
 }
 
+//TODO: split add and edit handler
 export function addOrEditHandler<T>(
-    addOrEdit: addOrEditControllerType<T>
+    addOrEdit: AddControllerType<T>
 ): RequestHandler {
     return async (req, res, next) => {
         try {
@@ -78,7 +79,7 @@ export function addOrEditHandler<T>(
 }
 
 export function removeHandler<T>(
-    remove: removeControllerType<T>,
+    remove: RemoveControllerType<T>,
     optionFn?: OptionsFn<T>
 ): RequestHandler {
     return async (req, res, next) => {
@@ -93,7 +94,7 @@ export function removeHandler<T>(
     };
 }
 
-export function loginHandler(login: loginControllerType): RequestHandler {
+export function loginHandler(login: LoginControllerType): RequestHandler {
     return async (req, res, next) => {
         try {
             const token = await login(req.body);
