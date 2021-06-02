@@ -28,7 +28,7 @@ import {
 import MaterialEntity from "./Material";
 
 @Entity()
-export default class InvestmentEntity {
+export class InvestmentEntity {
     @PrimaryGeneratedColumn()
     @EntityHasUniqueProps({ Entity: InvestmentEntity }, addGroup)
     @EntityWithPropsExists({ Entity: InvestmentEntity }, editGroup)
@@ -94,3 +94,5 @@ export default class InvestmentEntity {
         this.date = this.date || new Date().toISOString().split("T")[0];
     }
 }
+
+export default InvestmentEntity;

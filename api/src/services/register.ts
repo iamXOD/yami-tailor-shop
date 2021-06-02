@@ -3,7 +3,7 @@ import { createConnection } from "typeorm";
 //App Imports
 import { errorLogger } from ".";
 import { UserController } from "../controllers";
-import UserEntity from "../models/User";
+import { UserEntity } from "../models";
 
 async function registerFromConsole(): Promise<void> {
     const { argv } = process;

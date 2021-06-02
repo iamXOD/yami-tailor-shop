@@ -13,7 +13,7 @@ import { EntityHasUniqueProps, EntityWithPropsExists } from "./decorators";
 import MaterialEntity from "./Material";
 
 @Entity()
-export default class MaterialTypeEntity {
+export class MaterialTypeEntity {
     @PrimaryGeneratedColumn()
     @EntityHasUniqueProps({ Entity: MaterialTypeEntity }, addGroup)
     @EntityWithPropsExists({ Entity: MaterialTypeEntity }, editGroup)
@@ -47,3 +47,5 @@ export const materialTypesSeed = [
     { id: 3, name: "thread", unit: "cone" },
     { id: 4, name: "decorative", unit: "unit" },
 ] as MaterialTypeEntity[];
+
+export default MaterialTypeEntity;

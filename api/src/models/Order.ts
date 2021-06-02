@@ -29,7 +29,7 @@ import {
 import MaterialEntity from "./Material";
 
 @Entity()
-export default class OrderEntity {
+export class OrderEntity {
     @PrimaryGeneratedColumn()
     @EntityHasUniqueProps({ Entity: OrderEntity }, addGroup)
     @EntityWithPropsExists({ Entity: OrderEntity }, editGroup)
@@ -107,3 +107,5 @@ export default class OrderEntity {
         this.date = this.date || new Date().toISOString().split("T")[0];
     }
 }
+
+export default OrderEntity;

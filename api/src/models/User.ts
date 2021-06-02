@@ -25,7 +25,7 @@ import { EntityHasUniqueProps, EntityWithPropsExists } from "./decorators";
 const usernameValue = (v: string) => ({ username: v.toLowerCase() });
 
 @Entity()
-export default class UserEntity {
+export class UserEntity {
     @PrimaryColumn()
     @EntityWithPropsExists(
         { Entity: UserEntity, criteriaFn: usernameValue },
@@ -79,3 +79,5 @@ export default class UserEntity {
         return await bcrypt.compare(attempt, this.salted_password);
     }
 }
+
+export default UserEntity;

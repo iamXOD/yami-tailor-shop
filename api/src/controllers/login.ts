@@ -5,8 +5,7 @@ import { getRepository } from "typeorm";
 //App Imports
 import config from "../config";
 import { AuthenticationError, validateAndThrowError } from "../errors";
-import { loginGroups } from "../models/constants";
-import UserEntity from "../models/User";
+import { loginGroups, UserEntity } from "../models";
 
 export type LoginControllerType = (user: UserEntity) => Promise<string>;
 

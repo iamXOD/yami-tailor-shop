@@ -18,7 +18,7 @@ import {
 import MaterialTypeEntity from "./MaterialType";
 
 @Entity()
-export default class MaterialEntity {
+export class MaterialEntity {
     @PrimaryGeneratedColumn()
     @EntityHasUniqueProps({ Entity: MaterialEntity }, addGroup)
     @EntityWithPropsExists({ Entity: MaterialEntity }, editGroup)
@@ -53,3 +53,5 @@ export default class MaterialEntity {
     @Exclude()
     type: MaterialTypeEntity;
 }
+
+export default MaterialEntity;

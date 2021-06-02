@@ -4,7 +4,7 @@ import { getRepository } from "typeorm";
 //App Imports
 import { AddControllerType, addGroupAlways } from ".";
 import { validateAndThrowError } from "../errors";
-import UserEntity from "../models/User";
+import { UserEntity } from "../models";
 
 export const registerController: AddControllerType<UserEntity> = async (
     plainUser

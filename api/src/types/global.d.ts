@@ -1,6 +1,6 @@
 declare namespace Express {
     export interface Request {
-        user: import("../models/User").default | null;
+        user: import("../models").UserEntity | null;
     }
 }
 interface Error {

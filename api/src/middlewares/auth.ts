@@ -4,7 +4,7 @@ import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 //App Imports
 import config from "../config";
-import UserEntity from "../models/User";
+import { UserEntity } from "../models";
 
 interface Route {
     url: string;

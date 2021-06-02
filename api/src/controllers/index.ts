@@ -1,11 +1,13 @@
 //Entities
-import ActorEntity from "../models/Actor";
-import FixEntity from "../models/Fix";
-import InvestmentEntity from "../models/Investment";
-import MaterialEntity from "../models/Material";
-import MaterialTypeEntity from "../models/MaterialType";
-import OrderEntity from "../models/Order";
-import UserEntity from "../models/User";
+import {
+    ActorEntity,
+    FixEntity,
+    InvestmentEntity,
+    MaterialEntity,
+    MaterialTypeEntity,
+    OrderEntity,
+    UserEntity,
+} from "../models";
 //Controllers
 import { buildController } from "./buildController";
 import { getController } from "./get";

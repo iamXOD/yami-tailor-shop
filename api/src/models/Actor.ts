@@ -21,7 +21,7 @@ import {
 } from "./decorators";
 
 @Entity()
-export default class ActorEntity {
+export class ActorEntity {
     @PrimaryGeneratedColumn()
     @EntityWithPropsExists({ Entity: ActorEntity }, editGroup)
     @EntityHasUniqueProps({ Entity: ActorEntity }, addGroup)
@@ -79,3 +79,5 @@ export default class ActorEntity {
     @IsOptional()
     gender: "F" | "M";
 }
+
+export default ActorEntity;

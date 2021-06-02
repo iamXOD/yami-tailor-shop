@@ -28,7 +28,7 @@ import {
 } from "./decorators";
 
 @Entity()
-export default class FixEntity {
+export class FixEntity {
     @PrimaryGeneratedColumn()
     @EntityHasUniqueProps({ Entity: FixEntity }, addGroup)
     @EntityWithPropsExists({ Entity: FixEntity }, editGroup)
@@ -96,3 +96,5 @@ export default class FixEntity {
         this.date = this.date || new Date().toISOString().split("T")[0];
     }
 }
+
+export default FixEntity;

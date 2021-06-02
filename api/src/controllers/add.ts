@@ -3,7 +3,7 @@ import { ClassConstructor, plainToClass } from "class-transformer";
 import { getRepository } from "typeorm";
 //App Imports
 import { validateAndThrowError } from "../errors";
-import { addGroups } from "../models/constants";
+import { addGroups } from "../models";
 
 export type AddControllerType<T> = (item: T) => Promise<T>;
 
