@@ -1,11 +1,11 @@
 //Imports
 import { Request } from "express";
 import path from "path";
-import winston, { createLogger, format, transports } from "winston";
+import { createLogger, format, transports } from "winston";
 //App Imports
 import config from "../config";
 
-export const traceLogger = winston.createLogger({
+export const traceLogger = createLogger({
     transports: [
         new transports.File({
             filename: path.resolve(config.logDir, "trace.log"),

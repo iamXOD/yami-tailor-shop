@@ -3,6 +3,7 @@ import { Request } from "express";
 import { LessThan, MoreThan } from "typeorm";
 //App Imports
 import { OptionsFn } from ".";
+import { castString } from "../../util";
 
 export function addPagination<T>(uniquePropName = "id"): OptionsFn<T> {
     return (req, options) => {
@@ -40,19 +41,6 @@ function getTake(req: Request, defaultValue: number) {
 
 function getOrder(orderByProp: string, previousDirection = false) {
     return { [orderByProp]: previousDirection ? "DESC" : "ASC" };
-}
-
-export function castString(value: string): string | number | boolean {
-    if (value === "true") {
-        return true;
-    }
-    if (value === "false") {
-        return false;
-    }
-    if (value.match(/^d+$/)) {
-        return Number(value);
-    }
-    return value;
 }
 
 const CURSOR_REG_EXP = /^(prev|next)-([a-zA-z0-9]+)$/;
