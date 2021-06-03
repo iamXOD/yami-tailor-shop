@@ -1,5 +1,4 @@
 //Imports
-import { Exclude } from "class-transformer";
 import {
     IsNotEmpty,
     IsNumber,
@@ -50,7 +49,6 @@ export class MaterialEntity {
     @ManyToOne(() => MaterialTypeEntity, (type) => type.material, {
         onDelete: "SET NULL",
     })
-    @Exclude()
     type: MaterialTypeEntity;
 }
 

@@ -1,6 +1,5 @@
 //Imports
 import bcrypt from "bcrypt";
-import { Exclude } from "class-transformer";
 import {
     IsAlphanumeric,
     IsBoolean,
@@ -51,8 +50,7 @@ export class UserEntity {
     @IsString()
     password: string;
 
-    @Column()
-    @Exclude()
+    @Column({ select: false })
     salted_password: string;
 
     @Column(defaultsToFalse)

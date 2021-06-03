@@ -1,5 +1,4 @@
 //Imports
-import { Exclude } from "class-transformer";
 import {
     IsDateString,
     IsNotEmpty,
@@ -80,7 +79,6 @@ export class FixEntity {
     costumerId: number;
 
     @ManyToOne(() => ActorEntity, { onDelete: "SET NULL" })
-    @Exclude()
     costumer: ActorEntity;
 
     @Column()

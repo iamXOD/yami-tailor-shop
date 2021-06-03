@@ -1,5 +1,5 @@
 //Imports
-import { ClassConstructor, plainToClass } from "class-transformer";
+import { ClassConstructor } from "class-transformer";
 import { getRepository } from "typeorm";
 //App Imports
 import { EntityNotFoundError } from "../errors";
@@ -15,10 +15,7 @@ export function getController<T extends Record<string, any>>(
     entityName?: string
 ): GetControllerType<T> {
     return async (options) => {
-        const item = plainToClass(
-            Entity,
-            await getRepository(Entity).findOne(options)
-        );
+        const item = await getRepository(Entity).findOne(options);
         if (!item) {
             throw new EntityNotFoundError(
                 entityName || Entity.name,

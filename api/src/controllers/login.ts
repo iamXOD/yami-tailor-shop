@@ -15,9 +15,18 @@ export const loginController: LoginControllerType = async (user) => {
         always: true,
     });
 
-    const realUser = await getRepository(UserEntity).findOne({
-        username: user.username.toLowerCase(),
-    });
+    const realUser = plainToClass(
+        UserEntity,
+        (await getRepository(UserEntity)
+            .createQueryBuilder()
+            .select("username")
+            .addSelect("admin")
+            .addSelect("salted_password")
+            .where("username = :username", {
+                username: user.username.toLocaleLowerCase(),
+            })
+            .getRawOne()) as UserEntity
+    );
 
     if (realUser && (await realUser.comparePassword(user.password))) {
         return jwt.sign(

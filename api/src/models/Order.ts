@@ -1,5 +1,4 @@
 //Imports
-import { Exclude } from "class-transformer";
 import {
     IsDateString,
     IsNotEmpty,
@@ -48,7 +47,6 @@ export class OrderEntity {
     costumerId: number;
 
     @ManyToOne(() => ActorEntity, { onDelete: "SET NULL" })
-    @Exclude()
     costumer: ActorEntity;
 
     @Column(nullable)
@@ -60,7 +58,6 @@ export class OrderEntity {
     materialId: number;
 
     @ManyToOne(() => MaterialEntity, { onDelete: "SET NULL" })
-    @Exclude()
     material: MaterialEntity;
 
     @Column()
