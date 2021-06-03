@@ -1,12 +1,12 @@
 //Imports
 import { ClassConstructor, plainToClass } from "class-transformer";
-import { getRepository } from "typeorm";
+import { FindManyOptions, FindOneOptions, getRepository } from "typeorm";
 //App Imports
 import { GetOptions } from ".";
 
-export interface ListOptions<T = any> extends GetOptions<T> {
-    skip: number;
-    take: number;
+export interface ListOptions<T> extends GetOptions<T> {
+    take: FindManyOptions<T>["take"];
+    order: FindOneOptions<T>["order"];
 }
 
 export type ListControllerType<T> = (options: ListOptions<T>) => Promise<T[]>;
