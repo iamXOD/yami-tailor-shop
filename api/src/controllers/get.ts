@@ -12,15 +12,12 @@ export type GetControllerType<T> = (options: GetOptions<T>) => Promise<T>;
 
 export function getController<T extends Record<string, any>>(
     Entity: ClassConstructor<T>,
-    entityName?: string
+    entityName = Entity.name
 ): GetControllerType<T> {
     return async (options) => {
         const item = await getRepository(Entity).findOne(options);
         if (!item) {
-            throw new EntityNotFoundError(
-                entityName || Entity.name,
-                options.where
-            );
+            throw new EntityNotFoundError(entityName, options.where);
         }
         return item;
     };

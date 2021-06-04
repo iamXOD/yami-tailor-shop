@@ -4,6 +4,7 @@ import path from "path";
 import { createLogger, format, transports } from "winston";
 //App Imports
 import config from "../config";
+import { BaseError } from "../errors";
 
 export const traceLogger = createLogger({
     transports: [
@@ -29,7 +30,7 @@ export const errorLogger = createLogger({
     ],
 });
 
-export function logError(level: string, error: Error): void {
+export function logError(level: string, error: BaseError): void {
     errorLogger.log(
         level,
         `${new Date().toISOString()}: ${error.status} - ${error.message}`

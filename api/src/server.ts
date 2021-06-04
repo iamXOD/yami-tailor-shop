@@ -6,7 +6,7 @@ import "reflect-metadata";
 //App Imports
 import {
     auth,
-    errorHandler,
+    finalErrorHandler,
     JSONErrorHandler,
     requestLogger,
 } from "./middlewares";
@@ -26,4 +26,4 @@ export default express()
     .use(routes)
     //Error Handler
     .use(JSONErrorHandler)
-    .use(errorHandler);
+    .use(finalErrorHandler);

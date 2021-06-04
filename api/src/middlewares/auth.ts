@@ -4,6 +4,7 @@ import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 //App Imports
 import config from "../config";
+import { ResourceNotFoundError, UnauthorizedError } from "../errors";
 import { UserEntity } from "../models";
 
 interface Route {
@@ -40,20 +41,10 @@ export const auth: RequestHandler = (req, _res, next) => {
         req.user = plainToClass(UserEntity, jwt.verify(token, config.secret));
         next();
     } else {
-        const err = new Error();
-        err.message = "You must authenticate first";
-        err.status = 401;
-        next(err);
+        next(new UnauthorizedError("You must authenticate first"));
     }
 };
 
 export const isAdmin: RequestHandler = (req, _res, next) => {
-    if (req.user?.admin) {
-        next();
-    } else {
-        const error = new Error();
-        error.message = "Resource not found";
-        error.status = 404;
-        next(error);
-    }
+    req.user?.admin ? next() : next(new ResourceNotFoundError());
 };

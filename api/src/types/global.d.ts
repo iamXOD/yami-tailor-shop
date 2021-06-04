@@ -3,6 +3,3 @@ declare namespace Express {
         user: import("../models").UserEntity | null;
     }
 }
-interface Error {
-    status: number;
-}

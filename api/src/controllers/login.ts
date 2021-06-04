@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { getRepository } from "typeorm";
 //App Imports
 import config from "../config";
-import { AuthenticationError, validateAndThrowError } from "../errors";
+import { UnauthorizedError, validateAndThrowError } from "../errors";
 import { loginGroups, UserEntity } from "../models";
 
 export type LoginControllerType = (user: UserEntity) => Promise<string>;
@@ -34,6 +34,8 @@ export const loginController: LoginControllerType = async (user) => {
             config.secret
         );
     } else {
-        throw new AuthenticationError();
+        throw new UnauthorizedError(
+            "Authentication Failed. Incorrect username or password"
+        );
     }
 };

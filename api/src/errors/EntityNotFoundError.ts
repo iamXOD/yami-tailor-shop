@@ -1,14 +1,12 @@
 //App Imports
-import { stringify } from "../util";
+import { ResourceNotFoundError } from "./ResourceNotFoundError";
 
-export class EntityNotFoundError extends Error {
-    constructor(entityName: string, criteria?: Record<string, unknown>) {
-        super();
-        this.message = `${entityName}${getCriteria(criteria)} was not found`;
-        this.status = 404;
+export class EntityNotFoundError extends ResourceNotFoundError {
+    constructor(entityName: string, criteria?: any) {
+        super(`${entityName} ${stringify(criteria)}not found`);
     }
 }
 
-function getCriteria(item?: Record<string, unknown>) {
-    return item ? ` with ${stringify(item)}` : "";
+function stringify(item?: any) {
+    return item ? `with ${JSON.stringify(item).replace(/(\/)?"/g, "'")} ` : "";
 }
