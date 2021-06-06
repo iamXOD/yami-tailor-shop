@@ -3,8 +3,8 @@ import { OrderController } from "../controllers";
 import { buildHandler } from "./methods";
 import { addActorId, addMaterialId, OptionsFn } from "./options";
 
-const addMaterialIdAndCostumerId: OptionsFn = (req) =>
-    addActorId("costumerId")(req, addMaterialId(req));
+const addMaterialIdAndCostumerId: OptionsFn = (req, options) =>
+    addActorId("costumerId")(req, addMaterialId(req, options));
 
 export const OrderHandler = buildHandler(OrderController, {
     list: addMaterialIdAndCostumerId,
