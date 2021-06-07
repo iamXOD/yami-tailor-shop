@@ -7,12 +7,12 @@ import { addPagination, IdentityOption } from "../options";
 export function listHandler<T>(
     list: ListControllerType<T>,
     optionFn = IdentityOption,
-    idPropName = "id"
+    idPropName = "id" as keyof T
 ): RequestHandler {
     return async (req, res, next) => {
         const options = optionFn(
             req,
-            addPagination<T>(idPropName)(req)
+            addPagination<T>(idPropName.toString())(req)
         ) as ListOptions<T>;
         try {
             const items = await list(options);
@@ -22,12 +22,10 @@ export function listHandler<T>(
             }
             if (items.length === options.take) {
                 items.pop();
-                const cursorItem = items[items.length - 1] as any;
+                const cursor = String(items[items.length - 1][idPropName]);
                 res.setHeader(
                     "Link",
-                    `url=${req.baseUrl}?cursor=next-${
-                        cursorItem[idPropName]
-                    }&perPage=${options.take - 1}`
+                    getCursorLink(req.baseUrl, options.take - 1, cursor)
                 );
             }
 
@@ -42,8 +40,10 @@ function isOrderDESC<T>(order: ListOptions<T>["order"]): boolean {
     if (!order) {
         return false;
     }
-    const firstPropOfOrder = Object.keys(
-        order
-    )[0] as keyof ListOptions<T>["order"];
-    return order[firstPropOfOrder] === "DESC";
+    const firstOrder = Object.values(order)[0];
+    return firstOrder === "DESC" || firstOrder === -1;
+}
+
+function getCursorLink(baseUrl: string, perPage: number, cursor: string) {
+    return `url=${baseUrl}?perPage=${perPage}&cursor=next-${cursor}`;
 }
