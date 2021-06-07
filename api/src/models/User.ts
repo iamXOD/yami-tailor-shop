@@ -31,10 +31,7 @@ export class UserEntity {
         loginGroup
     )
     @EntityHasUniqueProps(
-        {
-            Entity: UserEntity,
-            criteriaFn: usernameValue,
-        },
+        { Entity: UserEntity, criteriaFn: usernameValue },
         addGroup
     )
     @IsAlphanumeric()

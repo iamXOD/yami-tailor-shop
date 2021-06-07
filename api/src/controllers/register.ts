@@ -9,9 +9,9 @@ import { UserEntity } from "../models";
 export const registerController: AddControllerType<UserEntity> = async (
     plainUser
 ) => {
-    const user = plainToClass(UserEntity, plainUser, addGroupAlways);
+    const user = plainToClass(UserEntity, plainUser);
 
-    await validateAndThrowError(user);
+    await validateAndThrowError(user, addGroupAlways);
 
     await getRepository(UserEntity).save(user);
 
