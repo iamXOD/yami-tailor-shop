@@ -45,5 +45,9 @@ function isOrderDESC<T>(order: ListOptions<T>["order"]): boolean {
 }
 
 function getCursorLink(baseUrl: string, perPage: number, cursor: string) {
-    return `url=${baseUrl}?perPage=${perPage}&cursor=next-${cursor}`;
+    return `url=${baseUrl}?perPage=${perPage}&cursor=${btoa(`next-${cursor}`)}`;
+}
+
+function btoa(value: string): string {
+    return Buffer.from(value, "binary").toString("base64");
 }

@@ -27,12 +27,16 @@ export function addPagination<T>(uniquePropName = "id"): OptionsFn<T> {
 function getPreviousDirectionAndValue(req: Request) {
     let isPrevious = false;
     let value = undefined;
-    const match = String(req.query.cursor).match(CURSOR_REG_EXP);
+    const match = atob(String(req.query.cursor)).match(CURSOR_REG_EXP);
     if (match) {
         isPrevious = match[1] === "prev";
         value = castString(match[2]);
     }
     return { isPrevious, value };
+}
+
+function atob(base64Encoded: string): string {
+    return Buffer.from(base64Encoded, "base64").toString("binary");
 }
 
 function getTake(req: Request, defaultValue: number) {
