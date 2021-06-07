@@ -1,10 +1,7 @@
 export type Primitive = string | boolean | number | symbol;
 
-export function stringify(item: Record<string, unknown>): string {
-    return Object.keys(item)
-        .filter((key) => isPrimitive(item[key]))
-        .map((key) => `${key}: ${item[key]}`)
-        .join(" and ");
+export function stringify(item: any): string {
+    return JSON.stringify(item).replace(/(\\)?"/g, "'");
 }
 
 export function isPrimitive(value: unknown): value is Primitive {

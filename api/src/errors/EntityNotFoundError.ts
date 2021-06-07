@@ -1,12 +1,13 @@
 //App Imports
+import { stringify } from "../util";
 import { ResourceNotFoundError } from "./ResourceNotFoundError";
 
 export class EntityNotFoundError extends ResourceNotFoundError {
     constructor(entityName: string, criteria?: any) {
-        super(`${entityName} ${stringify(criteria)}not found`);
+        super(`${entityName} ${getCriteria(criteria)}not found`);
     }
 }
 
-function stringify(item?: any) {
-    return item ? `with ${JSON.stringify(item).replace(/(\/)?"/g, "'")} ` : "";
+function getCriteria(item?: any) {
+    return item ? `with ${stringify(item)} ` : "";
 }
