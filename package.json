@@ -1,0 +1,13 @@
+{
+  "name": "yami-tailor-shop",
+  "version": "1.0.0",
+  "description": "An app to manage the Yami Tailor Shop data.",
+  "main": "api\\build\\index.js",
+  "scripts": {
+    "api-dev": "cd api/ && npm run dev",
+    "frontend-dev": "cd frontend/ && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Harold Iván Muñoz Garcés",
+  "license": "MIT"
+}
