@@ -1,3 +1,3 @@
 export * from "./auth";
-export * from "./errorHandlers";
-export * from "./requestLogger";
+export * from "./error";
+export * from "./logger";
