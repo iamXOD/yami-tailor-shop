@@ -2,7 +2,7 @@
 This repo adheres to custom angular-emoji commit guideline.
 
 ### Format
-Each commit message consits of a **header**, a **body** and a **footer**. The 
+Each commit message consists of a **header**, a **body** and a **footer**. The 
 header includes one or more **emojis**, a **type**, a **scope** and a 
 **subject**.
 ```
@@ -66,8 +66,6 @@ build system or external dependencies
   * logs [🔊 Speaker High Volume](http://emojipedia.org/speaker-high-volume/)
   * i18n [🌐 Globe With Meridians](http://emojipedia.org/globe-with-meridians/)
 
-
-  
 * **style** [🎨 Artist Palette](http://emojipedia.org/artist-palette/): Changes 
 that do not affect the meaning of the code (white-space, formatting, missing 
 semi-colons, etc)
@@ -84,7 +82,6 @@ semi-colons, etc)
 previous commit. It should begin with `revert: `, followed by the header of the 
 reverted commit. In the body it should say: `This reverts commit <hash>.`, where
  the hash is the SHA of the commit being reverted
-
 
 ### Condition Emojis
 This emojis can be added to the type emoji to notify about certain condition:
