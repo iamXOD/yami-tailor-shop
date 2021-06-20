@@ -6,8 +6,12 @@
   "scripts": {
     "api-dev": "cd api/ && npm run dev",
     "frontend-dev": "cd frontend/ && npm start",
+    "all-dev": "run-p api-dev frontend-dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Harold Iván Muñoz Garcés",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "npm-run-all": "4.1.5"
+  }
 }
