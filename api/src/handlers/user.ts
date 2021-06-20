@@ -6,11 +6,12 @@ import {
     listHandler,
     loginHandler,
 } from "./methods";
-import { addUsername } from "./options";
+import { addCurrentUsername, addUsername } from "./options";
 
 export const UserHandler = {
     list: listHandler(UserController.list, undefined, "username"),
     getByName: getByNameHandler(UserController.getByName, addUsername),
+    getCurrent: getByNameHandler(UserController.getByName, addCurrentUsername),
     register: addHandler(UserController.register),
     login: loginHandler(UserController.login),
 };
