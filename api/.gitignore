@@ -1,16 +1,4 @@
-#Dependencies
-node_modules/
-
-#Production
-build/
-
 #Database Files
 *.db
 *.sqlite
 *.sqlite3
-
-#Test
-__test__/
-
-#Enviroment vars example
-!example.env

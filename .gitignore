@@ -12,3 +12,6 @@ TODO.md
 
 #Modules
 node_modules/
+
+#Production
+build/
