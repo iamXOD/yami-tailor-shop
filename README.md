@@ -9,16 +9,20 @@ Pull requests are welcome, 😉
 ## 📦 Package Used
 ### Backend
 - **bcrypt**
-- **class-validator**
 - **class-transformer**
+- **class-validator**
 - **cookie-parser**
 - **cors**
+- **dotenv**
 - **express**
 - **jsonwebtoken**
+- **reflect-metadata**
 - **sqlite3**
 - **typeorm**
 - **winston**
 - **eslint**
+- **jest**
+- **supertest**
 - **typescript**
 
 ### Frontend
