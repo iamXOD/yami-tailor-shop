@@ -7,7 +7,5 @@ const addMaterialIdAndCostumerId: OptionsFn = (req, options) =>
     addActorId("costumerId")(req, addMaterialId(req, options));
 
 export const OrderHandler = buildHandler(OrderController, {
-    list: addMaterialIdAndCostumerId,
-    get: addMaterialIdAndCostumerId,
-    remove: addMaterialIdAndCostumerId,
+    all: addMaterialIdAndCostumerId,
 });

@@ -7,7 +7,5 @@ const addMaterialIdAndSupplierId: OptionsFn = (req, options) =>
     addActorId("supplierId")(req, addMaterialId(req, options));
 
 export const InvestmentHandler = buildHandler(InvestmentController, {
-    list: addMaterialIdAndSupplierId,
-    get: addMaterialIdAndSupplierId,
-    remove: addMaterialIdAndSupplierId,
+    all: addMaterialIdAndSupplierId,
 });

@@ -1,18 +1,11 @@
 //App Imports
-import { OptionsFn } from ".";
+import { addParamToWhere, ifConditionMergeWhere, OptionsFn } from "./utils";
 
-export const addUsername: OptionsFn = (req, options) => ({
-    ...options,
-    where: {
-        ...options?.where,
-        username: req.params.name.toLowerCase(),
-    },
-});
+export const addUsername = addParamToWhere((s) => s.toLowerCase(), "name");
 
-export const addCurrentUsername: OptionsFn = (req, options) => ({
-    ...options,
-    where: {
-        ...options?.where,
-        username: req.user?.username.toLowerCase(),
-    },
-});
+export const addCurrentUsername: OptionsFn = (req, options) => {
+    const username = req.user?.username.toLowerCase();
+    return ifConditionMergeWhere(options, Boolean(username), {
+        username,
+    });
+};

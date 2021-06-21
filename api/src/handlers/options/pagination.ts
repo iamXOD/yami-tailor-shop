@@ -2,23 +2,22 @@
 import { Request } from "express";
 import { LessThan, MoreThan } from "typeorm";
 //App Imports
-import { OptionsFn } from ".";
 import { castString } from "../../util";
+import { ifConditionMergeWhere, OptionsFn } from "./utils";
 
-export function addPagination<T>(uniquePropName = "id"): OptionsFn<T> {
+export function addPagination<T>(
+    uniquePropName = "id",
+    defaultTake = 5
+): OptionsFn<T> {
     return (req, options) => {
         const { isPrevious, value } = getPreviousDirectionAndValue(req);
         const operand = isPrevious ? LessThan : MoreThan;
-        if (value) {
-            options = {
-                ...options,
-                where: { ...options?.where, [uniquePropName]: operand(value) },
-            };
-        }
-
+        options = ifConditionMergeWhere(options, Boolean(value), {
+            [uniquePropName]: operand(value),
+        });
         return {
             ...options,
-            take: getTake(req, 5) + 1,
+            take: getTake(req, defaultTake) + 1,
             order: getOrder(uniquePropName, isPrevious),
         };
     };

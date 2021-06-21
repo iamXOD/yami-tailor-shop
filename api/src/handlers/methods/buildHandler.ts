@@ -18,6 +18,7 @@ export interface HandlerType {
 }
 
 export interface HandlerOptions<T> {
+    all?: OptionsFn<T>;
     list?: OptionsFn<T>;
     get?: OptionsFn<T>;
     remove?: OptionsFn<T>;
@@ -28,10 +29,13 @@ export function buildHandler<T>(
     options?: HandlerOptions<T>
 ): HandlerType {
     return {
-        list: listHandler(controller.list, options?.list),
-        get: getHandler(controller.get, options?.get),
+        list: listHandler(controller.list, options?.list || options?.all),
+        get: getHandler(controller.get, options?.get || options?.all),
         add: addHandler(controller.add),
         edit: editHandler(controller.edit),
-        remove: removeHandler(controller.remove, options?.remove),
+        remove: removeHandler(
+            controller.remove,
+            options?.remove || options?.all
+        ),
     };
 }

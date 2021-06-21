@@ -1,13 +1,4 @@
 //App Imports
-import { OptionsFn } from ".";
+import { addStringParamToWhere } from "./utils";
 
-export const addName: OptionsFn = (req, options = {}) => {
-    const name = req.params.name;
-    if (name) {
-        return {
-            ...options,
-            where: ({ ...options.where, name } as unknown) as Partial<any>,
-        };
-    }
-    return options;
-};
+export const addName = addStringParamToWhere("name");

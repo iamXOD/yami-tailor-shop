@@ -1,15 +1,6 @@
 //App Imports
-import { OptionsFn } from ".";
+import { addNumberParamToWhere, OptionsFn } from "./utils";
 
-export const addActorId = (actorIdPropName: string): OptionsFn => {
-    return (req, options = {}) => {
-        const actorId = Number(req.params.actorId);
-        if (actorId) {
-            return {
-                ...options,
-                where: { ...options?.where, [actorIdPropName]: actorId },
-            };
-        }
-        return options;
-    };
-};
+export function addActorId(actorIdPropName?: string): OptionsFn {
+    return addNumberParamToWhere("actorId", actorIdPropName);
+}
