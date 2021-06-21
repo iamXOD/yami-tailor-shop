@@ -1,6 +1,7 @@
 {
     "root": true,
     "parser": "@typescript-eslint/parser",
+    "parserOptions": { "ecmaVersion": 2020 },
     "plugins": ["@typescript-eslint", "jest"],
     "extends": [
         "eslint:recommended",
@@ -10,6 +11,7 @@
         "plugin:jest/style"
     ],
     "env": { "node": true, "jest/globals": true },
+    "settings": { "jest": { "version": 27 } },
     "rules": {
         "semi": ["error", "always"],
         "quotes": ["error", "double"],
@@ -29,6 +31,27 @@
                 "ignoreTemplateLiterals": true,
                 "ignoreRegExpLiterals": true
             }
-        ]
+        ],
+        "jest/expect-expect": [
+            "error",
+            {
+                "assertFunctionNames": ["expect", "request.**.expect"]
+            }
+        ],
+        "jest/lowercase-name": [
+            "error",
+            {
+                "allowedPrefixes": ["GET", "POST", "PUT", "DELETE"],
+                "ignoreTopLevelDescribe": true
+            }
+        ],
+        "jest/no-duplicate-hooks": 1,
+        "jest/no-if": 1,
+        "jest/no-large-snapshots": 1,
+        "jest/no-test-return-statement": 2,
+        "jest/prefer-hooks-on-top": 1,
+        "jest/prefer-spy-on": 1,
+        "jest/prefer-strict-equal": 1,
+        "jest/prefer-todo": 1
     }
 }
