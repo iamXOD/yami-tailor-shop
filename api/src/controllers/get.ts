@@ -5,7 +5,7 @@ import { getRepository } from "typeorm";
 import { EntityNotFoundError } from "../errors";
 
 export interface GetOptions<T = any> {
-    where?: Partial<T>;
+    where?: Partial<Record<keyof T, any>>;
 }
 
 export type GetControllerType<T> = (options: GetOptions<T>) => Promise<T>;
