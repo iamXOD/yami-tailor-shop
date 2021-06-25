@@ -1,12 +1,12 @@
 //Imports
 import { ClassConstructor } from "class-transformer";
-import { FindManyOptions, FindOneOptions, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
 //App Imports
 import { GetOptions } from ".";
 
 export interface ListOptions<T> extends GetOptions<T> {
-    take: FindManyOptions<T>["take"];
-    order: FindOneOptions<T>["order"];
+    take?: number;
+    order: Partial<Record<keyof T, "ASC" | "DESC" | 1 | -1>>;
 }
 
 export type ListControllerType<T> = (options: ListOptions<T>) => Promise<T[]>;

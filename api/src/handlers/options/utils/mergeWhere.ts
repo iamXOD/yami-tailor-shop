@@ -3,7 +3,7 @@ import { GetOptions } from "../../../controllers";
 
 export function mergeWhere<T>(
     options: GetOptions<T>,
-    newProps: Record<string, unknown>
+    newProps: GetOptions<T>["where"]
 ): GetOptions<T> {
     return { ...options, where: { ...options.where, ...newProps } };
 }
@@ -11,7 +11,7 @@ export function mergeWhere<T>(
 export function ifConditionMergeWhere<T>(
     options: GetOptions<T> = {},
     condition: boolean,
-    newProps: Record<string, unknown>
+    newProps: GetOptions<T>["where"]
 ): GetOptions<T> {
     if (condition) {
         return mergeWhere(options, newProps);

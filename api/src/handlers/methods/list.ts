@@ -2,8 +2,11 @@
 import { RequestHandler } from "express";
 import { LessThan, MoreThan } from "typeorm";
 //App Imports
+import config from "../../config";
 import { ListControllerType, ListOptions } from "../../controllers";
 import { addPagination, IdentityOption } from "../options";
+
+const DEFAULT_TAKE_VALUE = 5;
 
 export function listHandler<T>(
     list: ListControllerType<T>,
@@ -13,46 +16,44 @@ export function listHandler<T>(
     return async (req, res, next) => {
         const options = optionFn(
             req,
-            addPagination<T>(idPropName.toString())(req)
+            addPagination<T>(idPropName, DEFAULT_TAKE_VALUE)(req)
         ) as ListOptions<T>;
+
         try {
-            const items = await list(options);
+            let items = await list(options);
             const isOrderDescending = isOrderDESC(options.order);
-            const perPage = options.take ? options.take - 1 : 5;
+            const getCursorLink = getBaseLink(
+                req.baseUrl,
+                options.take ? options.take - 1 : DEFAULT_TAKE_VALUE
+            );
 
             const operand = isOrderDescending ? MoreThan : LessThan;
             const prev = await list({
                 where: { [idPropName]: operand(items[0][idPropName]) },
                 take: 1,
-            } as ListOptions<T>).catch(() => undefined);
-
+            } as ListOptions<T>);
             let prevLink = undefined;
             if (prev?.length) {
-                const cursor = String(items[0][idPropName]);
-                prevLink = getCursorLink(req.baseUrl, perPage, cursor, "prev");
+                prevLink = getCursorLink(String(items[0][idPropName]), "prev");
             }
 
             let nextLink = undefined;
             if (items.length === options.take) {
-                items.pop();
-                const cursor = String(items[items.length - 1][idPropName]);
-                nextLink = getCursorLink(req.baseUrl, perPage, cursor, "next");
+                items = items.slice(0, -1);
+                nextLink = getCursorLink(
+                    String(items[items.length - 1][idPropName]),
+                    "next"
+                );
             }
 
-            let link = "";
-            if (nextLink) {
-                link += nextLink;
-            }
-            if (prevLink) {
-                link += prevLink;
-            }
+            const link = [nextLink, prevLink].filter((l) => l).join(", ");
 
             if (link) {
                 res.setHeader("Link", link);
             }
 
             if (isOrderDescending) {
-                items.reverse();
+                items = items.slice().reverse();
             }
 
             res.json(items);
@@ -70,15 +71,13 @@ function isOrderDESC<T>(order: ListOptions<T>["order"]): boolean {
     return firstOrder === "DESC" || firstOrder === -1;
 }
 
-function getCursorLink(
-    baseUrl: string,
-    perPage: number,
-    cursor: string,
-    direction: "prev" | "next" = "next"
-) {
-    return `url=${baseUrl}?perPage=${perPage}&cursor=${btoa(
-        `${direction}-${cursor}`
-    )} rel=${direction} `;
+function getBaseLink(baseUrl: string, perPage: number) {
+    return (cursor: string, direction: "prev" | "next" = "next") =>
+        `<http://${config.host}:${
+            config.port
+        }${baseUrl}?perPage=${perPage}&cursor=${btoa(
+            `${direction}-${cursor}`
+        )}>; rel="${direction}"`;
 }
 
 function btoa(value: string): string {

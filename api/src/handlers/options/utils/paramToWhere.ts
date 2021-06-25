@@ -1,5 +1,6 @@
 //App Imports
 import { OptionsFn } from ".";
+import { GetOptions } from "../../../controllers";
 import { ifConditionMergeWhere } from "./mergeWhere";
 
 export function addParamToWhere<T>(
@@ -11,7 +12,7 @@ export function addParamToWhere<T>(
         const param = req.params[reqParamName];
         return ifConditionMergeWhere(options, Boolean(param), {
             [propName]: castingFunction(param),
-        });
+        } as GetOptions<T>["where"]);
     };
 }
 
