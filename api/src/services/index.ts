@@ -1,1 +1,1 @@
-export * from "./logger";
+export { errorLogger, logError, logRequest, traceLogger } from "./logger";

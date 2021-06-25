@@ -1,2 +1,2 @@
-export * from "./finalErrorHandler";
-export * from "./JSONErrorHandler";
+export { finalErrorHandler } from "./finalErrorHandler";
+export { JSONErrorHandler } from "./JSONErrorHandler";

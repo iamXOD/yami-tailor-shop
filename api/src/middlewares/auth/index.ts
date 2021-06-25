@@ -1,2 +1,2 @@
-export * from "./auth";
-export * from "./isAdmin";
+export { auth } from "./auth";
+export { isAdmin } from "./isAdmin";

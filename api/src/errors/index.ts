@@ -1,7 +1,7 @@
-export * from "./BaseError";
-export * from "./EntityNotFoundError";
-export * from "./InternalError";
-export * from "./JSONParseError";
-export * from "./ResourceNotFoundError";
-export * from "./UnauthorizedError";
-export * from "./ValidationError";
+export { BaseError } from "./BaseError";
+export { EntityNotFoundError } from "./EntityNotFoundError";
+export { InternalError } from "./InternalError";
+export { JSONParseError } from "./JSONParseError";
+export { ResourceNotFoundError } from "./ResourceNotFoundError";
+export { UnauthorizedError } from "./UnauthorizedError";
+export { validateAndThrowError } from "./ValidationError";

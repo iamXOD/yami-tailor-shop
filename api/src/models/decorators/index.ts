@@ -20,4 +20,9 @@ export function IsOnlyDateString(options?: ValidationOptions) {
     };
 }
 
-export * from "./checkEntityExists";
+export {
+    EntityHasUniqueProps,
+    EntityWithPropsExists,
+    idValue,
+    uniqueProp,
+} from "./checkEntityExists";

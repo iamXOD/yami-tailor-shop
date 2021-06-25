@@ -7,6 +7,10 @@ export type OptionsFn<T = any> = (
     options?: GetOptions<T>
 ) => GetOptions<T>;
 
-export * from "./identity";
+export { IdentityOption } from "./identity";
 export { ifConditionMergeWhere } from "./mergeWhere";
-export * from "./paramToWhere";
+export {
+    addNumberParamToWhere,
+    addParamToWhere,
+    addStringParamToWhere,
+} from "./paramToWhere";

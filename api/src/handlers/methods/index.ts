@@ -1,8 +1,8 @@
-export * from "./add";
-export * from "./buildHandler";
-export * from "./edit";
-export * from "./get";
-export * from "./getByName";
-export * from "./list";
-export * from "./login";
-export * from "./remove";
+export { addHandler } from "./add";
+export { buildHandler, HandlerType } from "./buildHandler";
+export { editHandler } from "./edit";
+export { getHandler } from "./get";
+export { getByNameHandler } from "./getByName";
+export { listHandler } from "./list";
+export { loginHandler } from "./login";
+export { removeHandler } from "./remove";

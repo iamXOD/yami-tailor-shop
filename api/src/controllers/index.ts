@@ -31,11 +31,10 @@ export const UserController = {
     login: loginController,
 };
 
-export * from "./add";
-export * from "./buildController";
-export * from "./edit";
-export * from "./get";
-export * from "./list";
-export * from "./login";
-export * from "./register";
-export * from "./remove";
+export { AddControllerType, addGroupAlways } from "./add";
+export { ControllerType } from "./buildController";
+export { EditControllerType } from "./edit";
+export { GetControllerType, GetOptions } from "./get";
+export { ListControllerType, ListOptions } from "./list";
+export { LoginControllerType } from "./login";
+export { RemoveControllerType } from "./remove";

@@ -1,7 +1,7 @@
-export * from "./actorId";
-export * from "./id";
-export * from "./materialId";
-export * from "./name";
-export * from "./pagination";
-export * from "./username";
+export { addActorId } from "./actorId";
+export { addId } from "./id";
+export { addMaterialId } from "./materialId";
+export { addName } from "./name";
+export { addPagination } from "./pagination";
+export { addCurrentUsername, addUsername } from "./username";
 export { IdentityOption, OptionsFn } from "./utils";

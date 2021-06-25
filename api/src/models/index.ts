@@ -1,8 +1,8 @@
-export * from "./Actor";
+export { ActorEntity } from "./Actor";
 export { addGroups, editGroups, loginGroups } from "./constants";
-export * from "./Fix";
-export * from "./Investment";
-export * from "./Material";
-export * from "./MaterialType";
-export * from "./Order";
-export * from "./User";
+export { FixEntity } from "./Fix";
+export { InvestmentEntity } from "./Investment";
+export { MaterialEntity } from "./Material";
+export { MaterialTypeEntity } from "./MaterialType";
+export { OrderEntity } from "./Order";
+export { UserEntity } from "./User";
