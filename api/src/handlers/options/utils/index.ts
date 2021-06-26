@@ -14,3 +14,4 @@ export {
     addParamToWhere,
     addStringParamToWhere,
 } from "./paramToWhere";
+export { pipe } from "./pipe";

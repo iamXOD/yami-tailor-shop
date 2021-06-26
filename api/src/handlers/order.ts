@@ -1,10 +1,12 @@
 //App Imports
 import { OrderController } from "../controllers";
 import { buildHandler } from "./methods";
-import { addActorId, addMaterialId, OptionsFn } from "./options";
+import { addActorId, addMaterialId, pipe } from "./options";
 
-const addMaterialIdAndCostumerId: OptionsFn = (req, options) =>
-    addActorId("costumerId")(req, addMaterialId(req, options));
+const addMaterialIdAndCostumerId = pipe(
+    addMaterialId,
+    addActorId("costumerId")
+);
 
 export const OrderHandler = buildHandler(OrderController, {
     all: addMaterialIdAndCostumerId,
