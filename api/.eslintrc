@@ -32,10 +32,18 @@
                 "ignoreRegExpLiterals": true
             }
         ],
+        "jest/consistent-test-it": [
+            "warn",
+            { "fn": "test", "withinDescribe": "it" }
+        ],
         "jest/expect-expect": [
-            "error",
+            "warn",
             {
-                "assertFunctionNames": ["expect", "request.**.expect"]
+                "assertFunctionNames": [
+                    "expect",
+                    "request.**.expect",
+                    "expect*"
+                ]
             }
         ],
         "jest/lowercase-name": [
