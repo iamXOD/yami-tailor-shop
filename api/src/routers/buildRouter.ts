@@ -11,7 +11,7 @@ export default function buildRouter(
     return Router(options)
         .get(ROOT_ROUTE, handler.list)
         .post(ROOT_ROUTE, handler.add)
-        .put(ROOT_ROUTE, handler.edit)
+        .put(ID_ROUTE, handler.edit)
         .get(ID_ROUTE, handler.get)
         .delete(ID_ROUTE, handler.remove);
 }

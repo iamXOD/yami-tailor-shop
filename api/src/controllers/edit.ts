@@ -4,22 +4,31 @@ import { getRepository } from "typeorm";
 //App Imports
 import { validateAndThrowError } from "../errors";
 import { editGroups } from "../models";
+import { GetOptions } from "./get";
 
-export type EditControllerType<T> = (item: T) => Promise<T>;
+export type EditControllerType<T> = (
+    item: T,
+    options: GetOptions<T>
+) => Promise<T>;
 
 export function editController<T extends Record<string, any>>(
     Entity: ClassConstructor<T>
 ): EditControllerType<T> {
-    return async (plainItem) => {
-        const item = plainToClass(Entity, plainItem);
-        await validateAndThrowError(item, { groups: editGroups, always: true });
+    return async (plainItem, options) => {
+        const newItem = plainToClass(Entity, plainItem);
+        await validateAndThrowError(newItem, {
+            groups: editGroups,
+            always: true,
+        });
 
-        const itemRepo = getRepository(Entity);
+        const repo = getRepository(Entity);
 
-        return await itemRepo.save(
+        const oldItem = await repo.findOne(options);
+
+        return await repo.save(
             plainToClass(Entity, {
-                ...(await itemRepo.findOne(item.id)),
-                ...item,
+                ...oldItem,
+                ...newItem,
             })
         );
     };
