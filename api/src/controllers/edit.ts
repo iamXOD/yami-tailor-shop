@@ -2,7 +2,7 @@
 import { ClassConstructor, plainToClass } from "class-transformer";
 import { getRepository } from "typeorm";
 //App Imports
-import { validateAndThrowError } from "../errors";
+import { EntityNotFoundError, validateAndThrowError } from "../errors";
 import { editGroups } from "../models";
 import { GetOptions } from "./get";
 
@@ -12,23 +12,26 @@ export type EditControllerType<T> = (
 ) => Promise<T>;
 
 export function editController<T extends Record<string, any>>(
-    Entity: ClassConstructor<T>
+    Entity: ClassConstructor<T>,
+    entityName = Entity.name
 ): EditControllerType<T> {
     return async (plainItem, options) => {
-        const newItem = plainToClass(Entity, plainItem);
-        await validateAndThrowError(newItem, {
+        const itemRepo = getRepository(Entity);
+
+        const oldItem = await itemRepo.findOne(options);
+        if (!oldItem) {
+            throw new EntityNotFoundError(entityName, options.where);
+        }
+
+        await validateAndThrowError(plainToClass(Entity, plainItem), {
             groups: editGroups,
             always: true,
         });
 
-        const repo = getRepository(Entity);
-
-        const oldItem = await repo.findOne(options);
-
-        return await repo.save(
+        return await itemRepo.save(
             plainToClass(Entity, {
                 ...oldItem,
-                ...newItem,
+                ...plainItem,
             })
         );
     };
