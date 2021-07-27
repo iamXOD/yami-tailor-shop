@@ -1,4 +1,5 @@
 export * from "./useAdd";
+export * from "./useAxios";
 export * from "./useDelete";
 export * from "./useFilter";
 export * from "./useGet";
