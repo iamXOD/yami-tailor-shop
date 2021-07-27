@@ -1,42 +1,40 @@
 export function save<T>(key: string, value: T): boolean {
-    if (!localStorage) {
-        return false;
-    }
-
     try {
+        if (!localStorage) {
+            return false;
+        }
         const serializedState = JSON.stringify(value);
         localStorage.setItem(key, serializedState);
         return true;
     } catch (error) {
-        throw new Error("Store serialization failed");
+        return false;
     }
 }
 
 export function load<T>(key: string): T | undefined {
-    if (!localStorage) {
-        return;
-    }
-
     try {
+        if (!localStorage) {
+            return;
+        }
         const serializedState = localStorage.getItem(key);
         if (serializedState == null) {
             return;
         }
         return JSON.parse(serializedState);
     } catch (error) {
-        throw new Error("Store deserialization failed");
+        return undefined;
     }
 }
 
 export function remove(key: string): boolean {
-    if (!localStorage) {
-        return false;
-    }
     try {
+        if (!localStorage) {
+            return false;
+        }
         localStorage.removeItem(key);
         return true;
     } catch (error) {
-        throw new Error("Store remove failed");
+        return false;
     }
 }
 
