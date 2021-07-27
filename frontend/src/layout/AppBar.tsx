@@ -25,13 +25,8 @@ export function AppBar({
     title,
     RightButton,
 }: Props): ReactElement {
-    const {
-        appBar,
-        menuButton,
-        logoLink,
-        loginButton,
-        toolBarMargin,
-    } = classes;
+    const { appBar, menuButton, logoLink, loginButton, toolBarMargin } =
+        classes;
 
     return (
         <>
@@ -52,5 +47,3 @@ export function AppBar({
         </>
     );
 }
-
-export default AppBar;

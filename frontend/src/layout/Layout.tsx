@@ -1,14 +1,16 @@
-//Imports
+// Imports
 import { makeStyles, Theme } from "@material-ui/core";
 import { pick } from "lodash";
 import { ReactElement, ReactNode, useState } from "react";
-//App Imports
-import { useUser } from "../user";
-import AppBar from "./AppBar";
+// App Imports
+import { AppBar } from "./AppBar";
 import { Drawer, DrawerMenuItem } from "./drawer";
-import { UserButtonLogged, UserButtonLogin } from "./LogButton";
 
-type Props = { drawerItems: DrawerMenuItem; children: ReactNode };
+type Props = {
+    drawerItems: DrawerMenuItem;
+    children: ReactNode;
+    LogButton: ReactElement;
+};
 
 const useStyles = makeStyles(({ zIndex, mixins }: Theme) => ({
     appBar: {
@@ -28,11 +30,13 @@ const useStyles = makeStyles(({ zIndex, mixins }: Theme) => ({
     toolBarMargin: mixins.toolbar,
 }));
 
-export function Layout({ drawerItems, children }: Props): ReactElement {
+export function Layout({
+    drawerItems,
+    children,
+    LogButton,
+}: Props): ReactElement {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const { user } = useUser();
-    const RightButton = user ? <UserButtonLogged /> : <UserButtonLogin />;
     const [title, setTitle] = useState<string>("Yami Tailor Shop");
     const close = (title?: string) => () => {
         setOpen(false);
@@ -47,7 +51,7 @@ export function Layout({ drawerItems, children }: Props): ReactElement {
                 classes={classes}
                 onMenuClick={toggle}
                 position="fixed"
-                RightButton={RightButton}
+                RightButton={LogButton}
             />
             <Drawer
                 open={open}
@@ -59,5 +63,3 @@ export function Layout({ drawerItems, children }: Props): ReactElement {
         </>
     );
 }
-
-export default Layout;

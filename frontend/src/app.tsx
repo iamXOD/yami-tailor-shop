@@ -11,7 +11,7 @@ import { ActorRoute, actorURL } from "./actor";
 import { ProtectedRoute } from "./components";
 import { DrawerMenuItem, Layout } from "./layout";
 import { About, PageNotFound } from "./pages";
-import { LoginContainer } from "./user";
+import { LogButton, LoginContainer } from "./user";
 
 export default function App(): ReactElement {
     const items: DrawerMenuItem = [
@@ -21,7 +21,7 @@ export default function App(): ReactElement {
     ];
 
     return (
-        <Layout drawerItems={items}>
+        <Layout drawerItems={items} LogButton={<LogButton />}>
             <Switch>
                 <Route path="/login" component={LoginContainer} />
                 <ProtectedRoute path="/actors" component={ActorRoute} />

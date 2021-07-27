@@ -17,10 +17,11 @@ import {
 } from "@material-ui/icons";
 import { ReactElement, useState } from "react";
 //App Imports
+import { LoginPayload } from "..";
 import { Item } from "../../components";
 import { useInput } from "../../hooks";
 
-type Props = { onSubmit: (username: string, password: string) => void };
+type Props = { onSubmit: (user: LoginPayload) => void };
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) => ({
     paper: {
@@ -89,7 +90,10 @@ export default function LoginForm({ onSubmit }: Props): ReactElement {
                 <Button
                     type="button"
                     onClick={() =>
-                        onSubmit(usernameProps.value, passwordProps.value)
+                        onSubmit({
+                            username: usernameProps.value,
+                            password: passwordProps.value,
+                        })
                     }
                     className={loginButton}
                     variant="contained"
@@ -107,6 +111,6 @@ function returnsInputProps(
     return {
         id: name,
         name,
-        label: name.charAt(0).toLocaleUpperCase().concat(name.slice(1)),
+        label: name.charAt(0).toUpperCase().concat(name.slice(1)),
     };
 }

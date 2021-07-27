@@ -1,44 +1,21 @@
 //Imports
-import decode from "jwt-decode";
 import { ReactElement } from "react";
 import { useHistory } from "react-router-dom";
-import useFetch from "use-http";
 //App Imports
-import { User } from "..";
 import { ErrorCard } from "../../components";
-import { storage as st } from "../../services";
 import { useUser } from "../Context";
+import { useLogin } from "../useLogin";
 import LoginForm from "./LoginForm";
 
 export function LoginContainer(): ReactElement {
     const history = useHistory();
-    const { user, login } = useUser();
-    const { post, error } = useFetch("login");
-
-    const onLogin = async (username: string, password: string) => {
-        const token = await post({ username, password });
-
-        if (isValidToken(token)) {
-            st.saveTOKEN(token);
-            const { username, admin } = decode<User>(token);
-            login({ username, admin });
-        }
-    };
+    const { user } = useUser();
+    const { login, error } = useLogin();
 
     user && history.goBack();
-
     if (error) {
         return <ErrorCard error={error} />;
     }
 
-    return <LoginForm onSubmit={onLogin} />;
+    return <LoginForm onSubmit={login} />;
 }
-
-function isValidToken(token: string | undefined): token is string {
-    if (token && typeof token == "string" && token !== "undefined") {
-        return true;
-    }
-    return false;
-}
-
-export default LoginContainer;

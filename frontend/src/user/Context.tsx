@@ -5,6 +5,7 @@ import {
     ReactElement,
     ReactNode,
     useContext,
+    useEffect,
     useState,
 } from "react";
 //App Imports
@@ -12,13 +13,13 @@ import { User } from ".";
 import { storage as st } from "../services";
 
 interface UserContextValues {
+    token?: string;
     user?: User;
-    login: (user: User) => void;
+    login: (token: string) => void;
     logout: () => void;
 }
 
-const token = st.loadTOKEN();
-const initialUser = token ? decode<User>(token) : undefined;
+const initialToken = st.loadTOKEN();
 
 const UserContext = createContext<UserContextValues | undefined>(undefined);
 
@@ -32,12 +33,29 @@ export function useUser(): UserContextValues {
 
 type Props = { children: ReactNode };
 export function UserProvider({ children }: Props): ReactElement {
-    const [user, setUser] = useState<User | undefined>(initialUser);
-    const login = (user: User) => setUser(user);
-    const logout = () => setUser(undefined);
+    const [token, setToken] = useState<string | undefined>(initialToken);
+    const [user, setUser] = useState<User | undefined>(
+        token ? decode<User>(token) : undefined
+    );
+
+    useEffect(() => {
+        if (token) {
+            setUser(decode<User>(token));
+            st.saveTOKEN(token);
+        } else {
+            setUser(undefined);
+            st.removeTOKEN();
+        }
+    }, [token]);
+
+    const login = (token: string) => {
+        setToken(token);
+    };
+
+    const logout = () => setToken(undefined);
 
     return (
-        <UserContext.Provider value={{ user, login, logout }}>
+        <UserContext.Provider value={{ user, login, logout, token }}>
             {children}
         </UserContext.Provider>
     );

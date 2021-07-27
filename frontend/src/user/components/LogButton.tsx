@@ -2,11 +2,15 @@
 import { Button } from "@material-ui/core";
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
-//App Imports
-import { storage as st } from "../services";
-import { useUser } from "../user";
+// App Imports
+import { useUser } from "../Context";
 
-export function UserButtonLogin(): ReactElement {
+export function LogButton(): ReactElement {
+    const { user } = useUser();
+    return user ? <UserButtonLogged /> : <UserButtonLogin />;
+}
+
+function UserButtonLogin(): ReactElement {
     return (
         <Button
             variant="contained"
@@ -19,7 +23,7 @@ export function UserButtonLogin(): ReactElement {
     );
 }
 
-export function UserButtonLogged(): ReactElement {
+function UserButtonLogged(): ReactElement {
     const { logout } = useUser();
 
     return (
@@ -27,10 +31,7 @@ export function UserButtonLogged(): ReactElement {
             variant="contained"
             size="small"
             color="secondary"
-            onClick={() => {
-                st.removeTOKEN();
-                logout();
-            }}>
+            onClick={logout}>
             Log Out
         </Button>
     );
