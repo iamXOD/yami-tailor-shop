@@ -7,25 +7,6 @@ export interface Actor {
     email?: string;
 }
 
-export const defaultActor: Actor = {
-    name: "",
-    mobile_phone: "",
-    home_phone: undefined,
-    email: undefined,
-    gender: "F",
-};
-
-export function migrateActor(
-    actor: Actor,
-    fn: (value?: string) => string | undefined
-): Actor {
-    return {
-        ...actor,
-        email: fn(actor.email),
-        home_phone: fn(actor.home_phone),
-    };
-}
-
 export const actorURL = "/actors";
 
-export * from "./components/Route";
+export { ActorRoute } from "./components/Route";

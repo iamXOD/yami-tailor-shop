@@ -59,7 +59,7 @@ export default function ActorForm({
                         helperText={touched.home_phone && errors.home_phone}
                     />
                 </Item>
-                <Item xs={12}>
+                <Item xs={12} sm={7} md={6}>
                     <TextField
                         id="email"
                         label="Email"
@@ -71,7 +71,7 @@ export default function ActorForm({
                         helperText={touched.email && errors.email}
                     />
                 </Item>
-                <Item xs={12}>
+                <Item xs={12} sm={5} md={6}>
                     <RadioGroup
                         label="Gender"
                         {...getFieldProps("gender")}
