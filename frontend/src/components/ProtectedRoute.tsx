@@ -1,17 +1,14 @@
-//Imports
+// Imports
 import { ReactElement } from "react";
-import { Redirect } from "react-router";
-import { Route, RouteProps } from "react-router-dom";
-//App Imports
+import { Redirect, Route, RouteProps } from "react-router-dom";
+// App Imports
 import { useUser } from "../user";
 
 export function ProtectedRoute(props: RouteProps): ReactElement {
-    const { user } = useUser();
+    const { token } = useUser();
 
-    if (!user) {
-        return <Redirect to="/login" />;
+    if (!token) {
+        return <Redirect to="/login" push={true} />;
     }
     return <Route {...props} />;
 }
-
-export default ProtectedRoute;
