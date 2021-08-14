@@ -2,7 +2,7 @@
 import { ReactElement } from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
 // App Imports
-import { useUser } from "../user";
+import { useUser } from "..";
 
 export function ProtectedRoute(props: RouteProps): ReactElement {
     const { token } = useUser();

@@ -7,5 +7,5 @@ export interface LoginPayload {
     password: string;
 }
 
-export { LogButton, LoginContainer } from "./components";
+export { LogButton, LoginContainer, ProtectedRoute } from "./components";
 export { UserProvider, useUser } from "./Context";

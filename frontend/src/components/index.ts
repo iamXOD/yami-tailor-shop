@@ -6,7 +6,6 @@ export * from "./dialogs/Dialog";
 export * from "./ErrorCard";
 export * from "./Grid";
 export * from "./Loading";
-export * from "./ProtectedRoute";
 export * from "./RadioGroup";
 export * from "./SearchField";
 export * from "./table";
