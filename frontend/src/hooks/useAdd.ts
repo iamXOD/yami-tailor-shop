@@ -1,19 +1,22 @@
-//Imports
-import useFetch from "use-http";
+// Imports
+import {
+    useMutation,
+    UseMutationOptions,
+    UseMutationResult,
+} from "react-query";
+// App Imports
+import { useAxios } from "./useAxios";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAdd<T extends Record<string, any>>(
-    url: string
-): (item: T) => Promise<T> {
-    const { post, response } = useFetch<T>(url);
+type UseAddMutationOptions<T, E> = UseMutationOptions<T, E, T>;
+type UseAddMutationResult<T, E> = UseMutationResult<T, E, T>;
 
-    return async (item) => {
-        const data = await post(item);
-        if (!response.ok) {
-            throw response.data;
-        }
-        return data;
-    };
+export function useAddMutation<T, E = Error>(
+    url: string,
+    options?: UseAddMutationOptions<T, E>
+): UseAddMutationResult<T, E> {
+    const axios = useAxios();
+    return useMutation(
+        (item: T) => axios.post<T>(url, item).then((res) => res.data),
+        { ...options }
+    );
 }
-
-export default useAdd;

@@ -1,11 +1,23 @@
-//Imports
-import useFetch from "use-http";
+// Imports
+import {
+    useMutation,
+    UseMutationOptions,
+    UseMutationResult,
+} from "react-query";
+// App Imports
+import { useAxios } from "./useAxios";
 
-export function useDelete(url: string): (id: number) => Promise<void> {
-    const { del } = useFetch(url);
-    return async (id) => {
-        await del(`/${id}`);
-    };
+type UseDeleteMutationOptions<E> = UseMutationOptions<number, E, void>;
+type UseDeleteMutationResult<E> = UseMutationResult<number, E, void>;
+
+export function useDeleteMutation<E = Error>(
+    url: string,
+    id: string,
+    options?: UseDeleteMutationOptions<E>
+): UseDeleteMutationResult<E> {
+    const axios = useAxios();
+    return useMutation(
+        () => axios.delete<void>(`${url}/${id}`).then((res) => res.status),
+        { ...options }
+    );
 }
-
-export default useDelete;

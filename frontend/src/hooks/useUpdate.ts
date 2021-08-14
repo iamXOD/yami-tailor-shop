@@ -1,18 +1,23 @@
-//Imports
-import useFetch from "use-http";
+// Imports
+import {
+    useMutation,
+    UseMutationOptions,
+    UseMutationResult,
+} from "react-query";
+// App Imports
+import { useAxios } from "./useAxios";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useUpdate<T extends Record<string, any>>(
-    url: string
-): (item: T) => Promise<T> {
-    const { put, response } = useFetch<T>(url);
+type UseUpdateMutationOptions<T, E> = UseMutationOptions<T, E, T>;
+type UseUpdateMutationResult<T, E> = UseMutationResult<T, E, T>;
 
-    return async (item) => {
-        const data = await put(item);
-        if (!response.ok) {
-            throw response.data;
-        }
-        return data;
-    };
+export function useUpdateMutation<T, E = Error>(
+    url: string,
+    id: string,
+    options?: UseUpdateMutationOptions<T, E>
+): UseUpdateMutationResult<T, E> {
+    const axios = useAxios();
+    return useMutation(
+        (item: T) => axios.put<T>(`${url}/${id}`, item).then((res) => res.data),
+        { ...options }
+    );
 }
-export default useUpdate;
