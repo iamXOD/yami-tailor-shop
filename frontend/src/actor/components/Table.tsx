@@ -1,24 +1,19 @@
 // Imports
+import { AxiosError } from "axios";
 import { ReactElement } from "react";
-import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 // App Imports
 import { Actor, actorURL } from "..";
 import { ActionTable, TableHeader, useSort } from "../../components";
-import { useAxios } from "../../hooks";
+import { useListQuery } from "../../hooks";
 
 export function ActorTable(): ReactElement {
-    const axios = useAxios();
     const history = useHistory();
     const {
         isLoading,
         error,
         data = [],
-    } = useQuery<Actor[], Error, Actor[], string[]>(
-        [actorURL],
-        async ({ queryKey: [url] }) =>
-            await axios.get<Actor[]>(url).then((res) => res.data)
-    );
+    } = useListQuery<Actor, AxiosError>(actorURL);
 
     const headers: TableHeader<Actor>[] = [
         { name: "name", isActive: false, label: "Name" },

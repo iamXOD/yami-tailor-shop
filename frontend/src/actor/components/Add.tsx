@@ -8,29 +8,41 @@ import {
     CardHeader,
 } from "@material-ui/core";
 import { Add as AddIcon, ArrowBack as BackIcon } from "@material-ui/icons";
+import { AxiosError } from "axios";
 import { useFormik } from "formik";
 import { ReactElement } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useQueryClient } from "react-query";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
 // App Imports
 import { Actor, actorURL } from "..";
-import { useAxios } from "../../hooks";
+import { useAddMutation } from "../../hooks";
 import { actorValidationSchema } from "../validationSchema";
 import ActorForm from "./Form";
 
 export function ActorAdd(): ReactElement {
-    const axios = useAxios();
-    axios.interceptors.response.use(
-        async (response) => {
-            return response;
+    const queryClient = useQueryClient();
+    const history = useHistory();
+    const goBack = () => history.goBack();
+    const { mutateAsync } = useAddMutation<
+        Actor,
+        AxiosError<{
+            type: string;
+            status: number;
+            validationErrors: {
+                message: string;
+                error: string;
+                path: string[];
+            }[];
+        }>
+    >(actorURL, {
+        onSuccess() {
+            queryClient.invalidateQueries([actorURL]);
         },
-        async function handleValidationError(error) {
-            const {
-                response: { data },
-            } = error;
-            if (data.status == 400 && data.type == "validation-error") {
+        onError(error) {
+            const data = error.response?.data;
+            if (data && data.status == 400 && data.type == "validation-error") {
                 const valErr = data.validationErrors.reduce(
-                    (acc: any, curr: any) => ({
+                    (acc, curr) => ({
                         ...acc,
                         [curr.path.join(".")]: curr.message,
                     }),
@@ -43,23 +55,8 @@ export function ActorAdd(): ReactElement {
             } else {
                 return Promise.reject(error);
             }
-        }
-    );
-    const queryClient = useQueryClient();
-    const history = useHistory();
-    const goBack = () => history.goBack();
-    const { mutateAsync } = useMutation<Actor, Error, Actor>(
-        async function (newActor: Actor): Promise<Actor> {
-            return await axios
-                .post<Actor>(actorURL, newActor)
-                .then((res) => res.data);
         },
-        {
-            onSuccess() {
-                queryClient.invalidateQueries([actorURL], { exact: true });
-            },
-        }
-    );
+    });
 
     const formik = useFormik({
         initialValues: initialActor,

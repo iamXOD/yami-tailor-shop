@@ -12,27 +12,23 @@ import {
     Delete as DeleteIcon,
 } from "@material-ui/icons";
 import { ReactElement } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useQueryClient } from "react-query";
 import { useHistory } from "react-router-dom";
 // App Imports
 import { Actor, actorURL } from "..";
-import { useAxios } from "../../hooks";
+import { useDeleteMutation } from "../../hooks";
 
 type Props = { actor: Actor };
 
 export function ActorDelete({ actor }: Props): ReactElement {
-    const axios = useAxios();
     const history = useHistory();
     const queryClient = useQueryClient();
-    const { mutateAsync } = useMutation(
-        () => axios.delete<void>(`${actorURL}/${actor.id}`),
-        {
-            onSuccess() {
-                queryClient.removeQueries([actorURL, String(actor.id)]);
-                queryClient.invalidateQueries([actorURL], { exact: true });
-            },
-        }
-    );
+    const { mutateAsync } = useDeleteMutation(actorURL, String(actor.id), {
+        onSuccess() {
+            queryClient.removeQueries([actorURL, { id: String(actor.id) }]);
+            queryClient.invalidateQueries([actorURL]);
+        },
+    });
     const goBack = () => history.goBack();
     const del = async () =>
         await mutateAsync().then(() => history.push("/actors"));
