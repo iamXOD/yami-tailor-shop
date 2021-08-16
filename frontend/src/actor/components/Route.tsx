@@ -13,7 +13,7 @@ export function ActorRoute(): ReactElement {
     const isMediumOrUp = useMediaQuery("(min-width:960px)");
 
     return (
-        <Container justify="center" alignItems="center">
+        <Container justifyContent="center" alignItems="center">
             <Route exact={!isMediumOrUp} path={`${path}/`}>
                 <Item xs={12} md={6} lg={7} xl={8}>
                     <ActorTable />
