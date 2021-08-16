@@ -17,7 +17,8 @@ export function useUpdateMutation<T, E = Error>(
 ): UseUpdateMutationResult<T, E> {
     const axios = useAxios();
     return useMutation(
-        (item: T) => axios.put<T>(`${url}/${id}`, item).then((res) => res.data),
+        async (item: T) =>
+            await axios.put<T>(`${url}/${id}`, item).then((res) => res.data),
         { ...options }
     );
 }

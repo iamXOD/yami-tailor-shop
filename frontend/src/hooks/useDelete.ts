@@ -17,7 +17,8 @@ export function useDeleteMutation<E = Error>(
 ): UseDeleteMutationResult<E> {
     const axios = useAxios();
     return useMutation(
-        () => axios.delete<void>(`${url}/${id}`).then((res) => res.status),
+        async () =>
+            await axios.delete<void>(`${url}/${id}`).then((res) => res.status),
         { ...options }
     );
 }
