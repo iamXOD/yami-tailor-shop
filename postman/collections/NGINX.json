@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "edfdfe0a-b942-40b7-8483-078c1ddd11d5",
+		"name": "NGINX",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "19527491-edfdfe0a-b942-40b7-8483-078c1ddd11d5"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69c5bfa9-2d26-4886-b25d-745b5ec7ac86",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "b7338f05-cee6-4a70-ac3a-e00d8518d75c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{nginx_host}}/health",
+					"host": [
+						"{{nginx_host}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
